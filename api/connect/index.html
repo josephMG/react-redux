@@ -1,0 +1,586 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Connect · React Redux</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="# `connect()`"/><meta name="docsearch:version" content="7.2"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Connect · React Redux"/><meta property="og:type" content="website"/><meta property="og:url" content="https://josephmg.github.io/react-redux/"/><meta property="og:description" content="# `connect()`"/><meta property="og:image" content="https://josephmg.github.io/react-redux/img/redux-logo-landscape.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://josephmg.github.io/react-redux/img/redux-logo-twitter.png"/><link rel="shortcut icon" href="/react-redux/img/favicon/favicon.ico"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/monokai.min.css"/><script>
+              (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+              (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+              m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+              })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+              ga('create', 'UA-130598673-2', 'auto');
+              ga('send', 'pageview');
+            </script><script type="text/javascript" src="/scripts/sidebarScroll.js"></script><script type="text/javascript" src="/scripts/codeblock.js"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="/react-redux/js/scrollSpy.js"></script><link rel="stylesheet" href="/react-redux/css/main.css"/><script src="/react-redux/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/react-redux/"><img class="logo" src="/react-redux/img/redux_white.svg" alt="React Redux"/><h2 class="headerTitleWithLogo">React Redux</h2></a><a href="/react-redux/versions"><h3>7.2</h3></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive"><a href="/react-redux/introduction/quick-start" target="_self">Quick Start</a></li><li class="siteNavGroupActive"><a href="/react-redux/using-react-redux/connect-mapstate" target="_self">Using React Redux</a></li><li class="siteNavGroupActive siteNavItemActive"><a href="/react-redux/api/connect" target="_self">API</a></li><li class=""><a href="https://www.github.com/reduxjs/react-redux" target="_self">Github</a></li><li class=""><a href="/introduction/quick-start#help-and-discussion" target="_self">Need help?</a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>API Reference</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Introduction</h3><ul class=""><li class="navListItem"><a class="navItem" href="/react-redux/introduction/quick-start">Quick Start</a></li><li class="navListItem"><a class="navItem" href="/react-redux/introduction/basic-tutorial">Basic Tutorial</a></li><li class="navListItem"><a class="navItem" href="/react-redux/introduction/why-use-react-redux">Why Use React Redux?</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Using React Redux</h3><ul class=""><li class="navListItem"><a class="navItem" href="/react-redux/using-react-redux/connect-mapstate">Connect: Extracting Data with mapStateToProps</a></li><li class="navListItem"><a class="navItem" href="/react-redux/using-react-redux/connect-mapdispatch">Connect: Dispatching Actions with mapDispatchToProps</a></li><li class="navListItem"><a class="navItem" href="/react-redux/using-react-redux/accessing-store">Accessing the Store</a></li><li class="navListItem"><a class="navItem" href="/react-redux/using-react-redux/static-typing">Static Typing</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">API Reference</h3><ul class=""><li class="navListItem navListItemActive"><a class="navItem" href="/react-redux/api/connect">connect()</a></li><li class="navListItem"><a class="navItem" href="/react-redux/api/provider">Provider</a></li><li class="navListItem"><a class="navItem" href="/react-redux/api/connect-advanced">connectAdvanced()</a></li><li class="navListItem"><a class="navItem" href="/react-redux/api/batch">batch()</a></li><li class="navListItem"><a class="navItem" href="/react-redux/api/hooks">Hooks</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Guides</h3><ul class=""><li class="navListItem"><a class="navItem" href="/react-redux/troubleshooting">Troubleshooting</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"></header><article><div><span><h1><a class="anchor" aria-hidden="true" id="connect"></a><a href="#connect" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>connect()</code></h1>
+<h2><a class="anchor" aria-hidden="true" id="overview"></a><a href="#overview" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Overview</h2>
+<p>The <code>connect()</code> function connects a React component to a Redux store.</p>
+<p>It provides its connected component with the pieces of the data it needs from the store, and the functions it can use to dispatch actions to the store.</p>
+<p>It does not modify the component class passed to it; instead, it returns a new, connected component class that wraps the component you passed in.</p>
+<pre><code class="hljs css language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">connect</span>(<span class="hljs-params">mapStateToProps?, mapDispatchToProps?, mergeProps?, options?</span>)
+</span></code></pre>
+<p>The <code>mapStateToProps</code> and <code>mapDispatchToProps</code> deals with your Redux store’s <code>state</code> and <code>dispatch</code>, respectively. <code>state</code> and <code>dispatch</code> will be supplied to your <code>mapStateToProps</code> or <code>mapDispatchToProps</code> functions as the first argument.</p>
+<p>The returns of <code>mapStateToProps</code> and <code>mapDispatchToProps</code> are referred to internally as <code>stateProps</code> and <code>dispatchProps</code>, respectively. They will be supplied to <code>mergeProps</code>, if defined, as the first and the second argument, where the third argument will be <code>ownProps</code>. The combined result, commonly referred to as <code>mergedProps</code>, will then be supplied to your connected component.</p>
+<h2><a class="anchor" aria-hidden="true" id="connect-parameters"></a><a href="#connect-parameters" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>connect()</code> Parameters</h2>
+<p><code>connect</code> accepts four different parameters, all optional. By convention, they are called:</p>
+<ol>
+<li><code>mapStateToProps?: Function</code></li>
+<li><code>mapDispatchToProps?: Function | Object</code></li>
+<li><code>mergeProps?: Function</code></li>
+<li><code>options?: Object</code></li>
+</ol>
+<h3><a class="anchor" aria-hidden="true" id="mapstatetoprops-state-ownprops--object"></a><a href="#mapstatetoprops-state-ownprops--object" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>mapStateToProps?: (state, ownProps?) =&gt; Object</code></h3>
+<p>If a <code>mapStateToProps</code> function is specified, the new wrapper component will subscribe to Redux store updates. This means that any time the store is updated, <code>mapStateToProps</code> will be called. The results of <code>mapStateToProps</code> must be a plain object, which will be merged into the wrapped component’s props. If you don't want to subscribe to store updates, pass <code>null</code> or <code>undefined</code> in place of <code>mapStateToProps</code>.</p>
+<h4><a class="anchor" aria-hidden="true" id="parameters"></a><a href="#parameters" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Parameters</h4>
+<ol>
+<li><code>state: Object</code></li>
+<li><code>ownProps?: Object</code></li>
+</ol>
+<p>A <code>mapStateToProps</code> function takes a maximum of two parameters. The number of declared function parameters (a.k.a. arity) affects when it will be called. This also determines whether the function will receive ownProps. See notes <a href="#the-arity-of-maptoprops-functions">here</a>.</p>
+<h5><a class="anchor" aria-hidden="true" id="state"></a><a href="#state" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>state</code></h5>
+<p>If your <code>mapStateToProps</code> function is declared as taking one parameter, it will be called whenever the store state changes, and given the store state as the only parameter.</p>
+<pre><code class="hljs css language-js"><span class="hljs-keyword">const</span> mapStateToProps = <span class="hljs-function"><span class="hljs-params">state</span> =&gt;</span> ({ <span class="hljs-attr">todos</span>: state.todos })
+</code></pre>
+<h5><a class="anchor" aria-hidden="true" id="ownprops"></a><a href="#ownprops" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>ownProps</code></h5>
+<p>If your <code>mapStateToProps</code> function is declared as taking two parameters, it will be called whenever the store state changes <em>or</em> when the wrapper component receives new props (based on shallow equality comparisons). It will be given the store state as the first parameter, and the wrapper component's props as the second parameter.</p>
+<p>The second parameter is normally referred to as <code>ownProps</code> by convention.</p>
+<pre><code class="hljs css language-js"><span class="hljs-keyword">const</span> mapStateToProps = <span class="hljs-function">(<span class="hljs-params">state, ownProps</span>) =&gt;</span> ({
+  <span class="hljs-attr">todo</span>: state.todos[ownProps.id]
+})
+</code></pre>
+<h4><a class="anchor" aria-hidden="true" id="returns"></a><a href="#returns" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Returns</h4>
+<p>Your <code>mapStateToProps</code> functions are expected to return an object. This object, normally referred to as <code>stateProps</code>, will be merged as props to your connected component. If you define <code>mergeProps</code>, it will be supplied as the first parameter to <code>mergeProps</code>.</p>
+<p>The return of the <code>mapStateToProps</code> determine whether the connected component will re-render (details <a href="../using-react-redux/connect-mapstate#return-values-determine-if-your-component-re-renders">here</a>).</p>
+<p>For more details on recommended usage of <code>mapStateToProps</code>, please refer to <a href="../using-react-redux/connect-mapstate">our guide on using <code>mapStateToProps</code></a>.</p>
+<blockquote>
+<p>You may define <code>mapStateToProps</code> and <code>mapDispatchToProps</code> as a factory function, i.e., you return a function instead of an object. In this case your returned function will be treated as the real <code>mapStateToProps</code> or <code>mapDispatchToProps</code>, and be called in subsequent calls. You may see notes on <a href="#factory-functions">Factory Functions</a> or our guide on performance optimizations.</p>
+</blockquote>
+<h3><a class="anchor" aria-hidden="true" id="mapdispatchtoprops-object--dispatch-ownprops--object"></a><a href="#mapdispatchtoprops-object--dispatch-ownprops--object" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>mapDispatchToProps?: Object | (dispatch, ownProps?) =&gt; Object</code></h3>
+<p>Conventionally called <code>mapDispatchToProps</code>, this second parameter to <code>connect()</code> may either be an object, a function, or not supplied.</p>
+<p>Your component will receive <code>dispatch</code> by default, i.e., when you do not supply a second parameter to <code>connect()</code>:</p>
+<pre><code class="hljs css language-js"><span class="hljs-comment">// do not pass `mapDispatchToProps`</span>
+connect()(MyComponent)
+connect(mapState)(MyComponent)
+connect(
+  mapState,
+  <span class="hljs-literal">null</span>,
+  mergeProps,
+  options
+)(MyComponent)
+</code></pre>
+<p>If you define a <code>mapDispatchToProps</code> as a function, it will be called with a maximum of two parameters.</p>
+<h4><a class="anchor" aria-hidden="true" id="parameters-1"></a><a href="#parameters-1" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Parameters</h4>
+<ol>
+<li><code>dispatch: Function</code></li>
+<li><code>ownProps?: Object</code></li>
+</ol>
+<h5><a class="anchor" aria-hidden="true" id="dispatch"></a><a href="#dispatch" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>dispatch</code></h5>
+<p>If your <code>mapDispatchToProps</code> is declared as a function taking one parameter, it will be given the <code>dispatch</code> of your <code>store</code>.</p>
+<pre><code class="hljs css language-js"><span class="hljs-keyword">const</span> mapDispatchToProps = <span class="hljs-function"><span class="hljs-params">dispatch</span> =&gt;</span> {
+  <span class="hljs-keyword">return</span> {
+    <span class="hljs-comment">// dispatching plain actions</span>
+    <span class="hljs-attr">increment</span>: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> dispatch({ <span class="hljs-attr">type</span>: <span class="hljs-string">'INCREMENT'</span> }),
+    <span class="hljs-attr">decrement</span>: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> dispatch({ <span class="hljs-attr">type</span>: <span class="hljs-string">'DECREMENT'</span> }),
+    <span class="hljs-attr">reset</span>: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> dispatch({ <span class="hljs-attr">type</span>: <span class="hljs-string">'RESET'</span> })
+  }
+}
+</code></pre>
+<h5><a class="anchor" aria-hidden="true" id="ownprops-1"></a><a href="#ownprops-1" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>ownProps</code></h5>
+<p>If your <code>mapDispatchToProps</code> function is declared as taking two parameters, it will be called with <code>dispatch</code> as the first parameter and the props passed to the wrapper component as the second parameter, and will be re-invoked whenever the connected component receives new props.</p>
+<p>The second parameter is normally referred to as <code>ownProps</code> by convention.</p>
+<pre><code class="hljs css language-js"><span class="hljs-comment">// binds on component re-rendering</span>
+&lt;button onClick={() =&gt; <span class="hljs-keyword">this</span>.props.toggleTodo(<span class="hljs-keyword">this</span>.props.todoId)} /&gt;
+
+<span class="hljs-comment">// binds on `props` change</span>
+<span class="hljs-keyword">const</span> mapDispatchToProps = <span class="hljs-function">(<span class="hljs-params">dispatch, ownProps</span>) =&gt;</span> {
+  <span class="hljs-attr">toggleTodo</span>: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> dispatch(toggleTodo(ownProps.todoId))
+}
+</code></pre>
+<p>The number of declared function parameters of <code>mapDispatchToProps</code> determines whether they receive ownProps. See notes <a href="#the-arity-of-maptoprops-functions">here</a>.</p>
+<h4><a class="anchor" aria-hidden="true" id="returns-1"></a><a href="#returns-1" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Returns</h4>
+<p>Your <code>mapDispatchToProps</code> functions are expected to return an object. Each fields of the object should be a function, calling which is expected to dispatch an action to the store.</p>
+<p>The return of your <code>mapDispatchToProps</code> functions are regarded as <code>dispatchProps</code>. It will be merged as props to your connected component. If you define <code>mergeProps</code>, it will be supplied as the second parameter to <code>mergeProps</code>.</p>
+<pre><code class="hljs css language-js"><span class="hljs-keyword">const</span> createMyAction = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> ({ <span class="hljs-attr">type</span>: <span class="hljs-string">'MY_ACTION'</span> })
+<span class="hljs-keyword">const</span> mapDispatchToProps = <span class="hljs-function">(<span class="hljs-params">dispatch, ownProps</span>) =&gt;</span> {
+  <span class="hljs-keyword">const</span> boundActions = bindActionCreators({ createMyAction }, dispatch)
+  <span class="hljs-keyword">return</span> {
+    <span class="hljs-attr">dispatchPlainObject</span>: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> dispatch({ <span class="hljs-attr">type</span>: <span class="hljs-string">'MY_ACTION'</span> }),
+    <span class="hljs-attr">dispatchActionCreatedByActionCreator</span>: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> dispatch(createMyAction()),
+    ...boundActions,
+    <span class="hljs-comment">// you may return dispatch here</span>
+    dispatch
+  }
+}
+</code></pre>
+<p>For more details on recommended usage, please refer to <a href="../using-react-redux/connect-mapdispatch">our guide on using <code>mapDispatchToProps</code></a>.</p>
+<blockquote>
+<p>You may define <code>mapStateToProps</code> and <code>mapDispatchToProps</code> as a factory function, i.e., you return a function instead of an object. In this case your returned function will be treated as the real <code>mapStateToProps</code> or <code>mapDispatchToProps</code>, and be called in subsequent calls. You may see notes on <a href="#factory-functions">Factory Functions</a> or our guide on performance optimizations.</p>
+</blockquote>
+<h4><a class="anchor" aria-hidden="true" id="object-shorthand-form"></a><a href="#object-shorthand-form" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Object Shorthand Form</h4>
+<p><code>mapDispatchToProps</code> may be an object where each field is an <a href="https://redux.js.org/glossary#action-creator">action creator</a>.</p>
+<pre><code class="hljs css language-js"><span class="hljs-keyword">import</span> { addTodo, deleteTodo, toggleTodo } <span class="hljs-keyword">from</span> <span class="hljs-string">'./actionCreators'</span>
+
+<span class="hljs-keyword">const</span> mapDispatchToProps = {
+  addTodo,
+  deleteTodo,
+  toggleTodo
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> connect(
+  <span class="hljs-literal">null</span>,
+  mapDispatchToProps
+)(TodoApp)
+</code></pre>
+<p>In this case, React-Redux binds the <code>dispatch</code> of your store to each of the action creators using <code>bindActionCreators</code>. The result will be regarded as <code>dispatchProps</code>, which will be either directly merged to your connected components, or supplied to <code>mergeProps</code> as the second argument.</p>
+<pre><code class="hljs css language-js"><span class="hljs-comment">// internally, React-Redux calls bindActionCreators</span>
+<span class="hljs-comment">// to bind the action creators to the dispatch of your store</span>
+bindActionCreators(mapDispatchToProps, dispatch)
+</code></pre>
+<p>We also have a section in our <code>mapDispatchToProps</code> guide on the usage of object shorthand form <a href="../using-react-redux/connect-mapdispatch#defining-mapdispatchtoprops-as-an-object">here</a>.</p>
+<h3><a class="anchor" aria-hidden="true" id="mergeprops-stateprops-dispatchprops-ownprops--object"></a><a href="#mergeprops-stateprops-dispatchprops-ownprops--object" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>mergeProps?: (stateProps, dispatchProps, ownProps) =&gt; Object</code></h3>
+<p>If specified, defines how the final props for your own wrapped component are determined. If you do not provide <code>mergeProps</code>, your wrapped component receives <code>{ ...ownProps, ...stateProps, ...dispatchProps }</code> by default.</p>
+<h4><a class="anchor" aria-hidden="true" id="parameters-2"></a><a href="#parameters-2" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Parameters</h4>
+<p><code>mergeProps</code> should be specified with maximum of three parameters. They are the result of <code>mapStateToProps()</code>, <code>mapDispatchToProps()</code>, and the wrapper component's <code>props</code>, respectively:</p>
+<ol>
+<li><code>stateProps</code></li>
+<li><code>dispatchProps</code></li>
+<li><code>ownProps</code></li>
+</ol>
+<p>The fields in the plain object you return from it will be used as the props for the wrapped component. You may specify this function to select a slice of the state based on props, or to bind action creators to a particular variable from props.</p>
+<h4><a class="anchor" aria-hidden="true" id="returns-2"></a><a href="#returns-2" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Returns</h4>
+<p>The return value of <code>mergeProps</code> is referred to as <code>mergedProps</code> and the fields will be used as the props for the wrapped component.</p>
+<h3><a class="anchor" aria-hidden="true" id="options-object"></a><a href="#options-object" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>options?: Object</code></h3>
+<pre><code class="hljs css language-js">{
+  context?: <span class="hljs-built_in">Object</span>,
+  pure?: boolean,
+  areStatesEqual?: <span class="hljs-built_in">Function</span>,
+  areOwnPropsEqual?: <span class="hljs-built_in">Function</span>,
+  areStatePropsEqual?: <span class="hljs-built_in">Function</span>,
+  areMergedPropsEqual?: <span class="hljs-built_in">Function</span>,
+  forwardRef?: boolean,
+}
+</code></pre>
+<h4><a class="anchor" aria-hidden="true" id="context-object"></a><a href="#context-object" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>context: Object</code></h4>
+<blockquote>
+<p>Note: This parameter is supported in &gt;= v6.0 only</p>
+</blockquote>
+<p>React-Redux v6 allows you to supply a custom context instance to be used by React-Redux.
+You need to pass the instance of your context to both <code>&lt;Provider /&gt;</code> and your connected component.
+You may pass the context to your connected component either by passing it here as a field of option, or as a prop to your connected component in rendering.</p>
+<pre><code class="hljs css language-js"><span class="hljs-comment">// const MyContext = React.createContext();</span>
+connect(
+  mapStateToProps,
+  mapDispatchToProps,
+  <span class="hljs-literal">null</span>,
+  { <span class="hljs-attr">context</span>: MyContext }
+)(MyComponent)
+</code></pre>
+<h4><a class="anchor" aria-hidden="true" id="pure-boolean"></a><a href="#pure-boolean" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>pure: boolean</code></h4>
+<ul>
+<li>default value: <code>true</code></li>
+</ul>
+<p>Assumes that the wrapped component is a “pure” component and does not rely on any input or state other than its props and the selected Redux store’s state.</p>
+<p>When <code>options.pure</code> is true, <code>connect</code> performs several equality checks that are used to avoid unnecessary calls to <code>mapStateToProps</code>, <code>mapDispatchToProps</code>, <code>mergeProps</code>, and ultimately to <code>render</code>. These include <code>areStatesEqual</code>, <code>areOwnPropsEqual</code>, <code>areStatePropsEqual</code>, and <code>areMergedPropsEqual</code>. While the defaults are probably appropriate 99% of the time, you may wish to override them with custom implementations for performance or other reasons.</p>
+<p>We provide a few examples in the following sections.</p>
+<h4><a class="anchor" aria-hidden="true" id="arestatesequal-next-object-prev-object--boolean"></a><a href="#arestatesequal-next-object-prev-object--boolean" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>areStatesEqual: (next: Object, prev: Object) =&gt; boolean</code></h4>
+<ul>
+<li>default value: <code>strictEqual: (next, prev) =&gt; prev === next</code></li>
+</ul>
+<p>When pure, compares incoming store state to its previous value.</p>
+<p><em>Example 1</em></p>
+<pre><code class="hljs css language-js"><span class="hljs-keyword">const</span> areStatesEqual = <span class="hljs-function">(<span class="hljs-params">next, prev</span>) =&gt;</span>
+  prev.entities.todos === next.entities.todos
+</code></pre>
+<p>You may wish to override <code>areStatesEqual</code> if your <code>mapStateToProps</code> function is computationally expensive and is also only concerned with a small slice of your state. The example above will effectively ignore state changes for everything but that slice of state.</p>
+<p><em>Example 2</em></p>
+<p>If you have impure reducers that mutate your store state, you may wish to override <code>areStatesEqual</code> to always return false:</p>
+<pre><code class="hljs css language-js"><span class="hljs-keyword">const</span> areStatesEqual = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-literal">false</span>
+</code></pre>
+<p>This would likely impact the other equality checks as well, depending on your <code>mapStateToProps</code> function.</p>
+<p><code>areOwnPropsEqual: (next: Object, prev: Object) =&gt; boolean</code></p>
+<ul>
+<li>default value: <code>shallowEqual: (objA, objB) =&gt; boolean</code>
+( returns <code>true</code> when each field of the objects is equal )</li>
+</ul>
+<p>When pure, compares incoming props to its previous value.</p>
+<p>You may wish to override <code>areOwnPropsEqual</code> as a way to whitelist incoming props. You'd also have to implement <code>mapStateToProps</code>, <code>mapDispatchToProps</code> and <code>mergeProps</code> to also whitelist props. (It may be simpler to achieve this other ways, for example by using <a href="https://github.com/acdlite/recompose/blob/master/docs/API.md#mapprops">recompose's mapProps</a>.)</p>
+<h4><a class="anchor" aria-hidden="true" id="arestatepropsequal-next-object-prev-object--boolean"></a><a href="#arestatepropsequal-next-object-prev-object--boolean" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>areStatePropsEqual: (next: Object, prev: Object) =&gt; boolean</code></h4>
+<ul>
+<li>type: <code>function</code></li>
+<li>default value: <code>shallowEqual</code></li>
+</ul>
+<p>When pure, compares the result of <code>mapStateToProps</code> to its previous value.</p>
+<h4><a class="anchor" aria-hidden="true" id="aremergedpropsequal-next-object-prev-object--boolean"></a><a href="#aremergedpropsequal-next-object-prev-object--boolean" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>areMergedPropsEqual: (next: Object, prev: Object) =&gt; boolean</code></h4>
+<ul>
+<li>default value: <code>shallowEqual</code></li>
+</ul>
+<p>When pure, compares the result of <code>mergeProps</code> to its previous value.</p>
+<p>You may wish to override <code>areStatePropsEqual</code> to use <code>strictEqual</code> if your <code>mapStateToProps</code> uses a memoized selector that will only return a new object if a relevant prop has changed. This would be a very slight performance improvement, since would avoid extra equality checks on individual props each time <code>mapStateToProps</code> is called.</p>
+<p>You may wish to override <code>areMergedPropsEqual</code> to implement a <code>deepEqual</code> if your selectors produce complex props. ex: nested objects, new arrays, etc. (The deep equal check may be faster than just re-rendering.)</p>
+<h4><a class="anchor" aria-hidden="true" id="forwardref-boolean"></a><a href="#forwardref-boolean" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>forwardRef: boolean</code></h4>
+<blockquote>
+<p>Note: This parameter is supported in &gt;= v6.0 only</p>
+</blockquote>
+<p>If <code>{forwardRef : true}</code> has been passed to <code>connect</code>, adding a ref to the connected wrapper component will actually return the instance of the wrapped component.</p>
+<h2><a class="anchor" aria-hidden="true" id="connect-returns"></a><a href="#connect-returns" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>connect()</code> Returns</h2>
+<p>The return of <code>connect()</code> is a wrapper function that takes your component and returns a wrapper component with the additional props it injects.</p>
+<pre><code class="hljs css language-js"><span class="hljs-keyword">import</span> { login, logout } <span class="hljs-keyword">from</span> <span class="hljs-string">'./actionCreators'</span>
+
+<span class="hljs-keyword">const</span> mapState = <span class="hljs-function"><span class="hljs-params">state</span> =&gt;</span> state.user
+<span class="hljs-keyword">const</span> mapDispatch = { login, logout }
+
+<span class="hljs-comment">// first call: returns a hoc that you can use to wrap any component</span>
+<span class="hljs-keyword">const</span> connectUser = connect(
+  mapState,
+  mapDispatch
+)
+
+<span class="hljs-comment">// second call: returns the wrapper component with mergedProps</span>
+<span class="hljs-comment">// you may use the hoc to enable different components to get the same behavior</span>
+<span class="hljs-keyword">const</span> ConnectedUserLogin = connectUser(Login)
+<span class="hljs-keyword">const</span> ConnectedUserProfile = connectUser(Profile)
+</code></pre>
+<p>In most cases, the wrapper function will be called right away, without being saved in a temporary variable:</p>
+<pre><code class="hljs css language-js"><span class="hljs-keyword">import</span> { login, logout } <span class="hljs-keyword">from</span> <span class="hljs-string">'./actionCreators'</span>
+
+<span class="hljs-keyword">const</span> mapState = <span class="hljs-function"><span class="hljs-params">state</span> =&gt;</span> state.user
+<span class="hljs-keyword">const</span> mapDispatch = { login, logout }
+
+<span class="hljs-comment">// call connect to generate the wrapper function, and immediately call</span>
+<span class="hljs-comment">// the wrapper function to generate the final wrapper component.</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> connect(
+  mapState,
+  mapDispatch
+)(Login)
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="example-usage"></a><a href="#example-usage" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Example Usage</h2>
+<p>Because <code>connect</code> is so flexible, it may help to see some additional examples of how it can be called:</p>
+<ul>
+<li>Inject just <code>dispatch</code> and don't listen to store</li>
+</ul>
+<pre><code class="hljs css language-js"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> connect()(TodoApp)
+</code></pre>
+<ul>
+<li>Inject all action creators (<code>addTodo</code>, <code>completeTodo</code>, ...) without subscribing to the store</li>
+</ul>
+<pre><code class="hljs css language-js"><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> actionCreators <span class="hljs-keyword">from</span> <span class="hljs-string">'./actionCreators'</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> connect(
+  <span class="hljs-literal">null</span>,
+  actionCreators
+)(TodoApp)
+</code></pre>
+<ul>
+<li>Inject <code>dispatch</code> and every field in the global state</li>
+</ul>
+<blockquote>
+<p>Don’t do this! It kills any performance optimizations because <code>TodoApp</code> will rerender after every state change.
+It’s better to have more granular <code>connect()</code> on several components in your view hierarchy that each only listen to a relevant slice of the state.</p>
+</blockquote>
+<pre><code class="hljs css language-js"><span class="hljs-comment">// don't do this!</span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> connect(<span class="hljs-function"><span class="hljs-params">state</span> =&gt;</span> state)(TodoApp)
+</code></pre>
+<ul>
+<li>Inject <code>dispatch</code> and <code>todos</code></li>
+</ul>
+<pre><code class="hljs css language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">mapStateToProps</span>(<span class="hljs-params">state</span>) </span>{
+  <span class="hljs-keyword">return</span> { <span class="hljs-attr">todos</span>: state.todos }
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> connect(mapStateToProps)(TodoApp)
+</code></pre>
+<ul>
+<li>Inject <code>todos</code> and all action creators</li>
+</ul>
+<pre><code class="hljs css language-js"><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> actionCreators <span class="hljs-keyword">from</span> <span class="hljs-string">'./actionCreators'</span>
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">mapStateToProps</span>(<span class="hljs-params">state</span>) </span>{
+  <span class="hljs-keyword">return</span> { <span class="hljs-attr">todos</span>: state.todos }
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> connect(
+  mapStateToProps,
+  actionCreators
+)(TodoApp)
+</code></pre>
+<ul>
+<li>Inject <code>todos</code> and all action creators (<code>addTodo</code>, <code>completeTodo</code>, ...) as <code>actions</code></li>
+</ul>
+<pre><code class="hljs css language-js"><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> actionCreators <span class="hljs-keyword">from</span> <span class="hljs-string">'./actionCreators'</span>
+<span class="hljs-keyword">import</span> { bindActionCreators } <span class="hljs-keyword">from</span> <span class="hljs-string">'redux'</span>
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">mapStateToProps</span>(<span class="hljs-params">state</span>) </span>{
+  <span class="hljs-keyword">return</span> { <span class="hljs-attr">todos</span>: state.todos }
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">mapDispatchToProps</span>(<span class="hljs-params">dispatch</span>) </span>{
+  <span class="hljs-keyword">return</span> { <span class="hljs-attr">actions</span>: bindActionCreators(actionCreators, dispatch) }
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TodoApp)
+</code></pre>
+<ul>
+<li>Inject <code>todos</code> and a specific action creator (<code>addTodo</code>)</li>
+</ul>
+<pre><code class="hljs css language-js"><span class="hljs-keyword">import</span> { addTodo } <span class="hljs-keyword">from</span> <span class="hljs-string">'./actionCreators'</span>
+<span class="hljs-keyword">import</span> { bindActionCreators } <span class="hljs-keyword">from</span> <span class="hljs-string">'redux'</span>
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">mapStateToProps</span>(<span class="hljs-params">state</span>) </span>{
+  <span class="hljs-keyword">return</span> { <span class="hljs-attr">todos</span>: state.todos }
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">mapDispatchToProps</span>(<span class="hljs-params">dispatch</span>) </span>{
+  <span class="hljs-keyword">return</span> bindActionCreators({ addTodo }, dispatch)
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TodoApp)
+</code></pre>
+<ul>
+<li>Inject <code>todos</code> and specific action creators (<code>addTodo</code> and <code>deleteTodo</code>) with shorthand syntax</li>
+</ul>
+<pre><code class="hljs css language-js"><span class="hljs-keyword">import</span> { addTodo, deleteTodo } <span class="hljs-keyword">from</span> <span class="hljs-string">'./actionCreators'</span>
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">mapStateToProps</span>(<span class="hljs-params">state</span>) </span>{
+  <span class="hljs-keyword">return</span> { <span class="hljs-attr">todos</span>: state.todos }
+}
+
+<span class="hljs-keyword">const</span> mapDispatchToProps = {
+  addTodo,
+  deleteTodo
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TodoApp)
+</code></pre>
+<ul>
+<li>Inject <code>todos</code>, <code>todoActionCreators</code> as <code>todoActions</code>, and <code>counterActionCreators</code> as <code>counterActions</code></li>
+</ul>
+<pre><code class="hljs css language-js"><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> todoActionCreators <span class="hljs-keyword">from</span> <span class="hljs-string">'./todoActionCreators'</span>
+<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> counterActionCreators <span class="hljs-keyword">from</span> <span class="hljs-string">'./counterActionCreators'</span>
+<span class="hljs-keyword">import</span> { bindActionCreators } <span class="hljs-keyword">from</span> <span class="hljs-string">'redux'</span>
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">mapStateToProps</span>(<span class="hljs-params">state</span>) </span>{
+  <span class="hljs-keyword">return</span> { <span class="hljs-attr">todos</span>: state.todos }
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">mapDispatchToProps</span>(<span class="hljs-params">dispatch</span>) </span>{
+  <span class="hljs-keyword">return</span> {
+    <span class="hljs-attr">todoActions</span>: bindActionCreators(todoActionCreators, dispatch),
+    <span class="hljs-attr">counterActions</span>: bindActionCreators(counterActionCreators, dispatch)
+  }
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TodoApp)
+</code></pre>
+<ul>
+<li>Inject <code>todos</code>, and todoActionCreators and counterActionCreators together as <code>actions</code></li>
+</ul>
+<pre><code class="hljs css language-js"><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> todoActionCreators <span class="hljs-keyword">from</span> <span class="hljs-string">'./todoActionCreators'</span>
+<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> counterActionCreators <span class="hljs-keyword">from</span> <span class="hljs-string">'./counterActionCreators'</span>
+<span class="hljs-keyword">import</span> { bindActionCreators } <span class="hljs-keyword">from</span> <span class="hljs-string">'redux'</span>
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">mapStateToProps</span>(<span class="hljs-params">state</span>) </span>{
+  <span class="hljs-keyword">return</span> { <span class="hljs-attr">todos</span>: state.todos }
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">mapDispatchToProps</span>(<span class="hljs-params">dispatch</span>) </span>{
+  <span class="hljs-keyword">return</span> {
+    <span class="hljs-attr">actions</span>: bindActionCreators(
+      { ...todoActionCreators, ...counterActionCreators },
+      dispatch
+    )
+  }
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TodoApp)
+</code></pre>
+<ul>
+<li>Inject <code>todos</code>, and all <code>todoActionCreators</code> and <code>counterActionCreators</code> directly as props</li>
+</ul>
+<pre><code class="hljs css language-js"><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> todoActionCreators <span class="hljs-keyword">from</span> <span class="hljs-string">'./todoActionCreators'</span>
+<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> counterActionCreators <span class="hljs-keyword">from</span> <span class="hljs-string">'./counterActionCreators'</span>
+<span class="hljs-keyword">import</span> { bindActionCreators } <span class="hljs-keyword">from</span> <span class="hljs-string">'redux'</span>
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">mapStateToProps</span>(<span class="hljs-params">state</span>) </span>{
+  <span class="hljs-keyword">return</span> { <span class="hljs-attr">todos</span>: state.todos }
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">mapDispatchToProps</span>(<span class="hljs-params">dispatch</span>) </span>{
+  <span class="hljs-keyword">return</span> bindActionCreators(
+    { ...todoActionCreators, ...counterActionCreators },
+    dispatch
+  )
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TodoApp)
+</code></pre>
+<ul>
+<li>Inject <code>todos</code> of a specific user depending on props</li>
+</ul>
+<pre><code class="hljs css language-js"><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> actionCreators <span class="hljs-keyword">from</span> <span class="hljs-string">'./actionCreators'</span>
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">mapStateToProps</span>(<span class="hljs-params">state, ownProps</span>) </span>{
+  <span class="hljs-keyword">return</span> { <span class="hljs-attr">todos</span>: state.todos[ownProps.userId] }
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> connect(mapStateToProps)(TodoApp)
+</code></pre>
+<ul>
+<li>Inject <code>todos</code> of a specific user depending on props, and inject <code>props.userId</code> into the action</li>
+</ul>
+<pre><code class="hljs css language-js"><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> actionCreators <span class="hljs-keyword">from</span> <span class="hljs-string">'./actionCreators'</span>
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">mapStateToProps</span>(<span class="hljs-params">state</span>) </span>{
+  <span class="hljs-keyword">return</span> { <span class="hljs-attr">todos</span>: state.todos }
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">mergeProps</span>(<span class="hljs-params">stateProps, dispatchProps, ownProps</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-built_in">Object</span>.assign({}, ownProps, {
+    <span class="hljs-attr">todos</span>: stateProps.todos[ownProps.userId],
+    <span class="hljs-attr">addTodo</span>: <span class="hljs-function"><span class="hljs-params">text</span> =&gt;</span> dispatchProps.addTodo(ownProps.userId, text)
+  })
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> connect(
+  mapStateToProps,
+  actionCreators,
+  mergeProps
+)(TodoApp)
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="notes"></a><a href="#notes" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Notes</h2>
+<h3><a class="anchor" aria-hidden="true" id="the-arity-of-maptoprops-functions"></a><a href="#the-arity-of-maptoprops-functions" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>The Arity of <code>mapToProps</code> Functions</h3>
+<p>The number of declared function parameters of <code>mapStateToProps</code> and <code>mapDispatchToProps</code> determines whether they receive <code>ownProps</code></p>
+<blockquote>
+<p>Note: <code>ownProps</code> is not passed to <code>mapStateToProps</code> and <code>mapDispatchToProps</code> if the formal definition of the function contains one mandatory parameter (function has length 1). For example, functions defined like below won't receive <code>ownProps</code> as the second argument. If the incoming value of <code>ownProps</code> is <code>undefined</code>, the default argument value will be used.</p>
+</blockquote>
+<pre><code class="hljs css language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">mapStateToProps</span>(<span class="hljs-params">state</span>) </span>{
+  <span class="hljs-built_in">console</span>.log(state) <span class="hljs-comment">// state</span>
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">arguments</span>[<span class="hljs-number">1</span>]) <span class="hljs-comment">// undefined</span>
+}
+
+<span class="hljs-keyword">const</span> mapStateToProps = <span class="hljs-function">(<span class="hljs-params">state, ownProps = {}</span>) =&gt;</span> {
+  <span class="hljs-built_in">console</span>.log(state) <span class="hljs-comment">// state</span>
+  <span class="hljs-built_in">console</span>.log(ownProps) <span class="hljs-comment">// {}</span>
+}
+</code></pre>
+<p>Functions with no mandatory parameters or two parameters*will receive <code>ownProps</code>.</p>
+<pre><code class="hljs css language-js"><span class="hljs-keyword">const</span> mapStateToProps = <span class="hljs-function">(<span class="hljs-params">state, ownProps</span>) =&gt;</span> {
+  <span class="hljs-built_in">console</span>.log(state) <span class="hljs-comment">// state</span>
+  <span class="hljs-built_in">console</span>.log(ownProps) <span class="hljs-comment">// ownProps</span>
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">mapStateToProps</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">arguments</span>[<span class="hljs-number">0</span>]) <span class="hljs-comment">// state</span>
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">arguments</span>[<span class="hljs-number">1</span>]) <span class="hljs-comment">// ownProps</span>
+}
+
+<span class="hljs-keyword">const</span> mapStateToProps = <span class="hljs-function">(<span class="hljs-params">...args</span>) =&gt;</span> {
+  <span class="hljs-built_in">console</span>.log(args[<span class="hljs-number">0</span>]) <span class="hljs-comment">// state</span>
+  <span class="hljs-built_in">console</span>.log(args[<span class="hljs-number">1</span>]) <span class="hljs-comment">// ownProps</span>
+}
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="factory-functions"></a><a href="#factory-functions" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Factory Functions</h3>
+<p>If your <code>mapStateToProps</code> or <code>mapDispatchToProps</code> functions return a function, they will be called once when the component instantiates, and their returns will be used as the actual <code>mapStateToProps</code>, <code>mapDispatchToProps</code>, functions respectively, in their subsequent calls.</p>
+<p>The factory functions are commonly used with memoized selectors. This gives you the ability to create component-instance-specific selectors inside the closure:</p>
+<pre><code class="hljs css language-js"><span class="hljs-keyword">const</span> makeUniqueSelectorInstance = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span>
+  createSelector(
+    [selectItems, selectItemId],
+    (items, itemId) =&gt; items[itemId]
+  )
+<span class="hljs-keyword">const</span> makeMapState = <span class="hljs-function"><span class="hljs-params">state</span> =&gt;</span> {
+  <span class="hljs-keyword">const</span> selectItemForThisComponent = makeUniqueSelectorInstance()
+  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">realMapState</span>(<span class="hljs-params">state, ownProps</span>) </span>{
+    <span class="hljs-keyword">const</span> item = selectItemForThisComponent(state, ownProps.itemId)
+    <span class="hljs-keyword">return</span> { item }
+  }
+}
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> connect(makeMapState)(SomeComponent)
+</code></pre>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/react-redux/using-react-redux/static-typing"><span class="arrow-prev">← </span><span>Previous</span></a><a class="docs-next button" href="/react-redux/api/provider"><span>Provider</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#overview">Overview</a></li><li><a href="#connect-parameters"><code>connect()</code> Parameters</a><ul class="toc-headings"><li><a href="#mapstatetoprops-state-ownprops--object"><code>mapStateToProps?: (state, ownProps?) =&gt; Object</code></a></li><li><a href="#mapdispatchtoprops-object--dispatch-ownprops--object"><code>mapDispatchToProps?: Object | (dispatch, ownProps?) =&gt; Object</code></a></li><li><a href="#mergeprops-stateprops-dispatchprops-ownprops--object"><code>mergeProps?: (stateProps, dispatchProps, ownProps) =&gt; Object</code></a></li><li><a href="#options-object"><code>options?: Object</code></a></li></ul></li><li><a href="#connect-returns"><code>connect()</code> Returns</a></li><li><a href="#example-usage">Example Usage</a></li><li><a href="#notes">Notes</a><ul class="toc-headings"><li><a href="#the-arity-of-maptoprops-functions">The Arity of <code>mapToProps</code> Functions</a></li><li><a href="#factory-functions">Factory Functions</a></li></ul></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/react-redux/" class="nav-home"><img src="/react-redux/img/redux_white.svg" alt="React Redux" width="66" height="58"/></a><div><h5>Docs</h5><a href="/react-redux/introduction/quick-start">Introduction</a><a href="/react-redux/using-react-redux/connect-mapstate">Using React Redux</a><a href="/react-redux/api/connect">API Reference</a><a href="/react-redux/troubleshooting">Guides</a></div><div><h5>Community</h5><a href="http://stackoverflow.com/questions/tagged/react-redux" target="_blank" rel="noreferrer noopener">Stack Overflow</a><a href="https://discord.gg/0ZcbPKXt5bZ6au5t">Discord</a></div><div><h5>More</h5><a href="https://github.com/reduxjs/react-redux/">GitHub</a><a class="github-button" href="https://github.com/reduxjs/react-redux" data-icon="octicon-star" data-count-href="/reduxjs/react-redux/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a><a href="https://www.netlify.com"><img src="https://www.netlify.com/img/global/badges/netlify-light.svg" alt="Deploys by Netlify"/></a></div></section><section class="copyright">Copyright (c) 2015-present Dan Abramov and the Redux documentation authors.<br/>Some icons copyright <a href="https://fontawesome.com/license/free" style="color:white">Font Awesome</a> and <a href="https://thenounproject.com" style="color:white">Noun Project</a> (<a href="https://thenounproject.com/term/certificate/1945625/" style="color:white">prasong tadoungsorn</a>, <a href="https://thenounproject.com/term/box/1664404/" style="color:white">Vladimir Belochkin</a>, <a href="https://thenounproject.com/term/rocket/1245262/" style="color:white">Atif Arshad</a>)</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+                document.addEventListener('keyup', function(e) {
+                  if (e.target !== document.body) {
+                    return;
+                  }
+                  // keyCode for '/' (slash)
+                  if (e.keyCode === 191) {
+                    const search = document.getElementById('search_input_react');
+                    search && search.focus();
+                  }
+                });
+              </script><script>
+              var search = docsearch({
+                
+                apiKey: '2d058d216b7fd5d68d481fd48ee72c06',
+                indexName: 'react-redux',
+                inputSelector: '#search_input_react',
+                algoliaOptions: {}
+              });
+            </script><script src="http://localhost:undefined/livereload.js"></script></body></html>

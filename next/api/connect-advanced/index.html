@@ -1,0 +1,143 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>connectAdvanced · React Redux</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="# `connectAdvanced()`"/><meta name="docsearch:version" content="next"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="connectAdvanced · React Redux"/><meta property="og:type" content="website"/><meta property="og:url" content="https://josephmg.github.io/react-redux/"/><meta property="og:description" content="# `connectAdvanced()`"/><meta property="og:image" content="https://josephmg.github.io/react-redux/img/redux-logo-landscape.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://josephmg.github.io/react-redux/img/redux-logo-twitter.png"/><link rel="shortcut icon" href="/react-redux/img/favicon/favicon.ico"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/monokai.min.css"/><script>
+              (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+              (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+              m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+              })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+              ga('create', 'UA-130598673-2', 'auto');
+              ga('send', 'pageview');
+            </script><script type="text/javascript" src="/scripts/sidebarScroll.js"></script><script type="text/javascript" src="/scripts/codeblock.js"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="/react-redux/js/scrollSpy.js"></script><link rel="stylesheet" href="/react-redux/css/main.css"/><script src="/react-redux/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/react-redux/"><img class="logo" src="/react-redux/img/redux_white.svg" alt="React Redux"/><h2 class="headerTitleWithLogo">React Redux</h2></a><a href="/react-redux/versions"><h3>next</h3></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive"><a href="/react-redux/next/introduction/quick-start" target="_self">Quick Start</a></li><li class="siteNavGroupActive"><a href="/react-redux/next/using-react-redux/connect-mapstate" target="_self">Using React Redux</a></li><li class="siteNavGroupActive"><a href="/react-redux/next/api/connect" target="_self">API</a></li><li class=""><a href="https://www.github.com/reduxjs/react-redux" target="_self">Github</a></li><li class=""><a href="/introduction/quick-start#help-and-discussion" target="_self">Need help?</a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>API Reference</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Introduction</h3><ul class=""><li class="navListItem"><a class="navItem" href="/react-redux/next/introduction/quick-start">Quick Start</a></li><li class="navListItem"><a class="navItem" href="/react-redux/next/introduction/basic-tutorial">Basic Tutorial</a></li><li class="navListItem"><a class="navItem" href="/react-redux/next/introduction/why-use-react-redux">Why Use React Redux?</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Using React Redux</h3><ul class=""><li class="navListItem"><a class="navItem" href="/react-redux/next/using-react-redux/connect-mapstate">Connect: Extracting Data with mapStateToProps</a></li><li class="navListItem"><a class="navItem" href="/react-redux/next/using-react-redux/connect-mapdispatch">Connect: Dispatching Actions with mapDispatchToProps</a></li><li class="navListItem"><a class="navItem" href="/react-redux/next/using-react-redux/accessing-store">Accessing the Store</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">API Reference</h3><ul class=""><li class="navListItem"><a class="navItem" href="/react-redux/next/api/connect">connect()</a></li><li class="navListItem"><a class="navItem" href="/react-redux/next/api/provider">Provider</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/react-redux/next/api/connect-advanced">connectAdvanced()</a></li><li class="navListItem"><a class="navItem" href="/react-redux/next/api/batch">batch()</a></li><li class="navListItem"><a class="navItem" href="/react-redux/next/api/hooks">Hooks</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Guides</h3><ul class=""><li class="navListItem"><a class="navItem" href="/react-redux/next/troubleshooting">Troubleshooting</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"></header><article><div><span><h1><a class="anchor" aria-hidden="true" id="connectadvanced"></a><a href="#connectadvanced" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>connectAdvanced()</code></h1>
+<pre><code class="hljs css language-js">connectAdvanced(selectorFactory, connectOptions?)
+</code></pre>
+<p>Connects a React component to a Redux store. It is the base for <code>connect()</code> but is less opinionated about how to combine <code>state</code>, <code>props</code>, and <code>dispatch</code> into your final props. It makes no assumptions about defaults or memoization of results, leaving those responsibilities to the caller.</p>
+<p>It does not modify the component class passed to it; instead, it <em>returns</em> a new, connected component class for you to use.</p>
+<p>Most applications will not need to use this, as the default behavior in <code>connect</code> is intended to work for most use cases.</p>
+<blockquote>
+<p>Note: <code>connectAdvanced</code> was added in version 5.0, and <code>connect</code> was reimplemented as a specific set of parameters to <code>connectAdvanced</code>.</p>
+</blockquote>
+<h2><a class="anchor" aria-hidden="true" id="arguments"></a><a href="#arguments" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Arguments</h2>
+<ul>
+<li><p><code>selectorFactory(dispatch, factoryOptions): selector(state, ownProps): props</code> (<em>Function</em>): Initializes a selector function (during each instance's constructor). That selector function is called any time the connector component needs to compute new props, as a result of a store state change or receiving new props. The result of <code>selector</code> is expected to be a plain object, which is passed as the props to the wrapped component. If a consecutive call to <code>selector</code> returns the same object (<code>===</code>) as its previous call, the component will not be re-rendered. It's the responsibility of <code>selector</code> to return that previous object when appropriate.</p></li>
+<li><p>[<code>connectOptions</code>] <em>(Object)</em> If specified, further customizes the behavior of the connector.</p>
+<ul>
+<li><p>[<code>getDisplayName</code>] <em>(Function)</em>: computes the connector component's displayName property relative to that of the wrapped component. Usually overridden by wrapper functions. Default value: <code>name =&gt; 'ConnectAdvanced('+name+')'</code></p></li>
+<li><p>[<code>methodName</code>] <em>(String)</em>: shown in error messages. Usually overridden by wrapper functions. Default value: <code>'connectAdvanced'</code></p></li>
+<li><p>[<code>renderCountProp</code>] <em>(String)</em>: if defined, a property named this value will be added to the props passed to the wrapped component. Its value will be the number of times the component has been rendered, which can be useful for tracking down unnecessary re-renders. Default value: <code>undefined</code></p></li>
+<li><p>[<code>shouldHandleStateChanges</code>] <em>(Boolean)</em>: controls whether the connector component subscribes to redux store state changes. If set to false, it will only re-render when parent component re-renders. Default value: <code>true</code></p></li>
+<li><p>[<code>forwardRef</code>] <em>(Boolean)</em>: If true, adding a ref to the connected wrapper component will actually return the instance of the wrapped component.</p></li>
+<li><p>Additionally, any extra options passed via <code>connectOptions</code> will be passed through to your <code>selectorFactory</code> in the <code>factoryOptions</code> argument.</p></li>
+</ul></li>
+</ul>
+<p><a id="connectAdvanced-returns"></a></p>
+<h2><a class="anchor" aria-hidden="true" id="returns"></a><a href="#returns" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Returns</h2>
+<p>A higher-order React component class that builds props from the store state and passes them to the wrapped component. A higher-order component is a function which accepts a component argument and returns a new component.</p>
+<h3><a class="anchor" aria-hidden="true" id="static-properties"></a><a href="#static-properties" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Static Properties</h3>
+<ul>
+<li><code>WrappedComponent</code> <em>(Component)</em>: The original component class passed to <code>connectAdvanced(...)(Component)</code>.</li>
+</ul>
+<h3><a class="anchor" aria-hidden="true" id="static-methods"></a><a href="#static-methods" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Static Methods</h3>
+<p>All the original static methods of the component are hoisted.</p>
+<h2><a class="anchor" aria-hidden="true" id="remarks"></a><a href="#remarks" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Remarks</h2>
+<ul>
+<li><p>Since <code>connectAdvanced</code> returns a higher-order component, it needs to be invoked two times. The first time with its arguments as described above, and a second time, with the component: <code>connectAdvanced(selectorFactory)(MyComponent)</code>.</p></li>
+<li><p><code>connectAdvanced</code> does not modify the passed React component. It returns a new, connected component, that you should use instead.</p></li>
+</ul>
+<p><a id="connectAdvanced-examples"></a></p>
+<h3><a class="anchor" aria-hidden="true" id="examples"></a><a href="#examples" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Examples</h3>
+<h3><a class="anchor" aria-hidden="true" id="inject-todos-of-a-specific-user-depending-on-props-and-inject-propsuserid-into-the-action"></a><a href="#inject-todos-of-a-specific-user-depending-on-props-and-inject-propsuserid-into-the-action" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Inject <code>todos</code> of a specific user depending on props, and inject <code>props.userId</code> into the action</h3>
+<pre><code class="hljs css language-js"><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> actionCreators <span class="hljs-keyword">from</span> <span class="hljs-string">'./actionCreators'</span>
+<span class="hljs-keyword">import</span> { bindActionCreators } <span class="hljs-keyword">from</span> <span class="hljs-string">'redux'</span>
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">selectorFactory</span>(<span class="hljs-params">dispatch</span>) </span>{
+  <span class="hljs-keyword">let</span> ownProps = {}
+  <span class="hljs-keyword">let</span> result = {}
+
+  <span class="hljs-keyword">const</span> actions = bindActionCreators(actionCreators, dispatch)
+  <span class="hljs-keyword">const</span> addTodo = <span class="hljs-function"><span class="hljs-params">text</span> =&gt;</span> actions.addTodo(ownProps.userId, text)
+
+  <span class="hljs-keyword">return</span> <span class="hljs-function">(<span class="hljs-params">nextState, nextOwnProps</span>) =&gt;</span> {
+    <span class="hljs-keyword">const</span> todos = nextState.todos[nextOwnProps.userId]
+    <span class="hljs-keyword">const</span> nextResult = { ...nextOwnProps, todos, addTodo }
+    ownProps = nextOwnProps
+    <span class="hljs-keyword">if</span> (!shallowEqual(result, nextResult)) result = nextResult
+    <span class="hljs-keyword">return</span> result
+  }
+}
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> connectAdvanced(selectorFactory)(TodoApp)
+</code></pre>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/react-redux/next/api/provider"><span class="arrow-prev">← </span><span>Provider</span></a><a class="docs-next button" href="/react-redux/next/api/batch"><span>batch()</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#arguments">Arguments</a></li><li><a href="#returns">Returns</a><ul class="toc-headings"><li><a href="#static-properties">Static Properties</a></li><li><a href="#static-methods">Static Methods</a></li></ul></li><li><a href="#remarks">Remarks</a><ul class="toc-headings"><li><a href="#examples">Examples</a></li><li><a href="#inject-todos-of-a-specific-user-depending-on-props-and-inject-propsuserid-into-the-action">Inject <code>todos</code> of a specific user depending on props, and inject <code>props.userId</code> into the action</a></li></ul></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/react-redux/" class="nav-home"><img src="/react-redux/img/redux_white.svg" alt="React Redux" width="66" height="58"/></a><div><h5>Docs</h5><a href="/react-redux/introduction/quick-start">Introduction</a><a href="/react-redux/using-react-redux/connect-mapstate">Using React Redux</a><a href="/react-redux/api/connect">API Reference</a><a href="/react-redux/troubleshooting">Guides</a></div><div><h5>Community</h5><a href="http://stackoverflow.com/questions/tagged/react-redux" target="_blank" rel="noreferrer noopener">Stack Overflow</a><a href="https://discord.gg/0ZcbPKXt5bZ6au5t">Discord</a></div><div><h5>More</h5><a href="https://github.com/reduxjs/react-redux/">GitHub</a><a class="github-button" href="https://github.com/reduxjs/react-redux" data-icon="octicon-star" data-count-href="/reduxjs/react-redux/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a><a href="https://www.netlify.com"><img src="https://www.netlify.com/img/global/badges/netlify-light.svg" alt="Deploys by Netlify"/></a></div></section><section class="copyright">Copyright (c) 2015-present Dan Abramov and the Redux documentation authors.<br/>Some icons copyright <a href="https://fontawesome.com/license/free" style="color:white">Font Awesome</a> and <a href="https://thenounproject.com" style="color:white">Noun Project</a> (<a href="https://thenounproject.com/term/certificate/1945625/" style="color:white">prasong tadoungsorn</a>, <a href="https://thenounproject.com/term/box/1664404/" style="color:white">Vladimir Belochkin</a>, <a href="https://thenounproject.com/term/rocket/1245262/" style="color:white">Atif Arshad</a>)</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+                document.addEventListener('keyup', function(e) {
+                  if (e.target !== document.body) {
+                    return;
+                  }
+                  // keyCode for '/' (slash)
+                  if (e.keyCode === 191) {
+                    const search = document.getElementById('search_input_react');
+                    search && search.focus();
+                  }
+                });
+              </script><script>
+              var search = docsearch({
+                
+                apiKey: '2d058d216b7fd5d68d481fd48ee72c06',
+                indexName: 'react-redux',
+                inputSelector: '#search_input_react',
+                algoliaOptions: {}
+              });
+            </script><script src="http://localhost:undefined/livereload.js"></script></body></html>

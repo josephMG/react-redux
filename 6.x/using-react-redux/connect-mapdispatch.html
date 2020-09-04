@@ -1,0 +1,390 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Connect: Dispatching Actions with mapDispatchToProps · React Redux</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="# Connect: Dispatching Actions with `mapDispatchToProps`"/><meta name="docsearch:version" content="6.x"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Connect: Dispatching Actions with mapDispatchToProps · React Redux"/><meta property="og:type" content="website"/><meta property="og:url" content="https://josephmg.github.io/react-redux/"/><meta property="og:description" content="# Connect: Dispatching Actions with `mapDispatchToProps`"/><meta property="og:image" content="https://josephmg.github.io/react-redux/img/redux-logo-landscape.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://josephmg.github.io/react-redux/img/redux-logo-twitter.png"/><link rel="shortcut icon" href="/react-redux/img/favicon/favicon.ico"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/monokai.min.css"/><script>
+              (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+              (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+              m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+              })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+              ga('create', 'UA-130598673-2', 'auto');
+              ga('send', 'pageview');
+            </script><script type="text/javascript" src="/scripts/sidebarScroll.js"></script><script type="text/javascript" src="/scripts/codeblock.js"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="/react-redux/js/scrollSpy.js"></script><link rel="stylesheet" href="/react-redux/css/main.css"/><script src="/react-redux/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/react-redux/"><img class="logo" src="/react-redux/img/redux_white.svg" alt="React Redux"/><h2 class="headerTitleWithLogo">React Redux</h2></a><a href="/react-redux/versions"><h3>6.x</h3></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive"><a href="/react-redux/6.x/introduction/quick-start" target="_self">Quick Start</a></li><li class="siteNavGroupActive"><a href="/react-redux/6.x/using-react-redux/connect-mapstate" target="_self">Using React Redux</a></li><li class="siteNavGroupActive"><a href="/react-redux/6.x/api/connect" target="_self">API</a></li><li class=""><a href="https://www.github.com/reduxjs/react-redux" target="_self">Github</a></li><li class=""><a href="/introduction/quick-start#help-and-discussion" target="_self">Need help?</a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>Using React Redux</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Introduction</h3><ul class=""><li class="navListItem"><a class="navItem" href="/react-redux/6.x/introduction/quick-start">Quick Start</a></li><li class="navListItem"><a class="navItem" href="/react-redux/6.x/introduction/basic-tutorial">Basic Tutorial</a></li><li class="navListItem"><a class="navItem" href="/react-redux/6.x/introduction/why-use-react-redux">Why Use React Redux?</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Using React Redux</h3><ul class=""><li class="navListItem"><a class="navItem" href="/react-redux/6.x/using-react-redux/connect-mapstate">Connect: Extracting Data with mapStateToProps</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/react-redux/6.x/using-react-redux/connect-mapdispatch">Connect: Dispatching Actions with mapDispatchToProps</a></li><li class="navListItem"><a class="navItem" href="/react-redux/6.x/using-react-redux/accessing-store">Accessing the Store</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">API Reference</h3><ul class=""><li class="navListItem"><a class="navItem" href="/react-redux/6.x/api/connect">connect()</a></li><li class="navListItem"><a class="navItem" href="/react-redux/6.x/api/provider">Provider</a></li><li class="navListItem"><a class="navItem" href="/react-redux/6.x/api/connect-advanced">connectAdvanced()</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Guides</h3><ul class=""><li class="navListItem"><a class="navItem" href="/react-redux/6.x/troubleshooting">Troubleshooting</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"></header><article><div><span><h1><a class="anchor" aria-hidden="true" id="connect-dispatching-actions-with-mapdispatchtoprops"></a><a href="#connect-dispatching-actions-with-mapdispatchtoprops" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Connect: Dispatching Actions with <code>mapDispatchToProps</code></h1>
+<p>As the second argument passed in to <code>connect</code>, <code>mapDispatchToProps</code> is used for dispatching actions to the store.</p>
+<p><code>dispatch</code> is a function of the Redux store. You call <code>store.dispatch</code> to dispatch an action.
+This is the only way to trigger a state change.</p>
+<p>With React Redux, your components never access the store directly - <code>connect</code> does it for you.
+React Redux gives you two ways to let components dispatch actions:</p>
+<ul>
+<li>By default, a connected component receives <code>props.dispatch</code> and can dispatch actions itself.</li>
+<li><code>connect</code> can accept an argument called <code>mapDispatchToProps</code>, which lets you create functions that dispatch when called, and pass those functions as props to your component.</li>
+</ul>
+<p>The <code>mapDispatchToProps</code> functions are normally referred to as <code>mapDispatch</code> for short, but the actual variable name used can be whatever you want.</p>
+<h2><a class="anchor" aria-hidden="true" id="approaches-for-dispatching"></a><a href="#approaches-for-dispatching" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Approaches for Dispatching</h2>
+<h3><a class="anchor" aria-hidden="true" id="default-dispatch-as-a-prop"></a><a href="#default-dispatch-as-a-prop" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Default: <code>dispatch</code> as a Prop</h3>
+<p>If you don't specify the second argument to <code>connect()</code>, your component will receive <code>dispatch</code> by default. For example:</p>
+<pre><code class="hljs css language-js">connect()(MyComponent)
+<span class="hljs-comment">// which is equivalent with</span>
+connect(
+  <span class="hljs-literal">null</span>,
+  <span class="hljs-literal">null</span>
+)(MyComponent)
+
+<span class="hljs-comment">// or</span>
+connect(mapStateToProps <span class="hljs-comment">/** no second argument */</span>)(MyComponent)
+</code></pre>
+<p>Once you have connected your component in this way, your component receives <code>props.dispatch</code>. You may use it to dispatch actions to the store.</p>
+<pre><code class="hljs css language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Counter</span>(<span class="hljs-params">{ count, dispatch }</span>) </span>{
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =&gt;</span> dispatch({ type: 'DECREMENT' })}&gt;-<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>{count}<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =&gt;</span> dispatch({ type: 'INCREMENT' })}&gt;+<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =&gt;</span> dispatch({ type: 'RESET' })}&gt;reset<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+  )
+}
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="providing-a-mapdispatchtoprops-parameter"></a><a href="#providing-a-mapdispatchtoprops-parameter" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Providing A <code>mapDispatchToProps</code> Parameter</h3>
+<p>Providing a <code>mapDispatchToProps</code> allows you to specify which actions your component might need to dispatch. It lets you provide action dispatching functions as props. Therefore, instead of calling <code>props.dispatch(() =&gt; increment())</code>, you may call <code>props.increment()</code> directly. There are a few reasons why you might want to do that.</p>
+<h4><a class="anchor" aria-hidden="true" id="more-declarative"></a><a href="#more-declarative" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>More Declarative</h4>
+<p>First, encapsulating the dispatch logic into function makes the implementation more declarative.
+Dispatching an action and letting the Redux store handle the data flow is <em>how to</em> implement the behavior, rather than <em>what</em> it does.</p>
+<p>A good example would be dispatching an action when a button is clicked. Connecting the button directly probably doesn't make sense conceptually, and neither does having the button reference <code>dispatch</code>.</p>
+<pre><code class="hljs css language-js"><span class="hljs-comment">// button needs to be aware of "dispatch"</span>
+&lt;button onClick={() =&gt; dispatch({ <span class="hljs-attr">type</span>: <span class="hljs-string">"SOMETHING"</span> })} /&gt;
+
+<span class="hljs-comment">// button unaware of "dispatch",</span>
+<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{doSomething}</span> /&gt;</span></span>
+</code></pre>
+<p>Once you've wrapped all our action creators with functions that dispatch the actions, the component is free of the need of <code>dispatch</code>.
+Therefore, <strong>if you define your own <code>mapDispatchToProps</code>, the connected component will no longer receive <code>dispatch</code>.</strong></p>
+<h4><a class="anchor" aria-hidden="true" id="pass-down-action-dispatching-logic-to--unconnected--child-components"></a><a href="#pass-down-action-dispatching-logic-to--unconnected--child-components" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Pass Down Action Dispatching Logic to ( Unconnected ) Child Components</h4>
+<p>In addition, you also gain the ability to pass down the action dispatching functions to child ( likely unconnected ) components.
+This allows more components to dispatch actions, while keeping them &quot;unaware&quot; of Redux.</p>
+<pre><code class="hljs css language-jsx"><span class="hljs-comment">// pass down toggleTodo to child component</span>
+<span class="hljs-comment">// making Todo able to dispatch the toggleTodo action</span>
+<span class="hljs-keyword">const</span> TodoList = <span class="hljs-function">(<span class="hljs-params">{ todos, toggleTodo }</span>) =&gt;</span> (
+  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+    {todos.map(todo =&gt; (
+      <span class="hljs-tag">&lt;<span class="hljs-name">Todo</span> <span class="hljs-attr">todo</span>=<span class="hljs-string">{todo}</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{toggleTodo}</span> /&gt;</span>
+    ))}
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+)
+</code></pre>
+<p>This is what React Redux’s <code>connect</code> does — it encapsulates the logic of talking to the Redux store and lets you not worry about it. And this is what you should totally make full use of in your implementation.</p>
+<h2><a class="anchor" aria-hidden="true" id="two-forms-of-mapdispatchtoprops"></a><a href="#two-forms-of-mapdispatchtoprops" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Two Forms of <code>mapDispatchToProps</code></h2>
+<p>The <code>mapDispatchToProps</code> parameter can be of two forms. While the function form allows more customization, the object form is easy to use.</p>
+<ul>
+<li><strong>Function form</strong>: Allows more customization, gains access to <code>dispatch</code> and optionally <code>ownProps</code></li>
+<li><strong>Object shorthand form</strong>: More declarative and easier to use</li>
+</ul>
+<blockquote>
+<p>⭐ <strong>Note:</strong> We recommend using the object form of <code>mapDispatchToProps</code> unless you specifically need to customize dispatching behavior in some way.</p>
+</blockquote>
+<h2><a class="anchor" aria-hidden="true" id="defining-mapdispatchtoprops-as-a-function"></a><a href="#defining-mapdispatchtoprops-as-a-function" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Defining <code>mapDispatchToProps</code> As A Function</h2>
+<p>Defining <code>mapDispatchToProps</code> as a function gives you the most flexibility in customizing the functions your component receives, and how they dispatch actions.
+You gain access to <code>dispatch</code> and <code>ownProps</code>.
+You may use this chance to write customized functions to be called by your connected components.</p>
+<h3><a class="anchor" aria-hidden="true" id="arguments"></a><a href="#arguments" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Arguments</h3>
+<ol>
+<li><strong><code>dispatch</code></strong></li>
+<li><strong><code>ownProps</code> (optional)</strong></li>
+</ol>
+<p><strong><code>dispatch</code></strong></p>
+<p>The <code>mapDispatchToProps</code> function will be called with <code>dispatch</code> as the first argument.
+You will normally make use of this by returning new functions that call <code>dispatch()</code> inside themselves, and either pass in a plain action object directly or pass in the result of an action creator.</p>
+<pre><code class="hljs css language-js"><span class="hljs-keyword">const</span> mapDispatchToProps = <span class="hljs-function"><span class="hljs-params">dispatch</span> =&gt;</span> {
+  <span class="hljs-keyword">return</span> {
+    <span class="hljs-comment">// dispatching plain actions</span>
+    <span class="hljs-attr">increment</span>: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> dispatch({ <span class="hljs-attr">type</span>: <span class="hljs-string">'INCREMENT'</span> }),
+    <span class="hljs-attr">decrement</span>: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> dispatch({ <span class="hljs-attr">type</span>: <span class="hljs-string">'DECREMENT'</span> }),
+    <span class="hljs-attr">reset</span>: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> dispatch({ <span class="hljs-attr">type</span>: <span class="hljs-string">'RESET'</span> })
+  }
+}
+</code></pre>
+<p>You will also likely want to forward arguments to your action creators:</p>
+<pre><code class="hljs css language-js"><span class="hljs-keyword">const</span> mapDispatchToProps = <span class="hljs-function"><span class="hljs-params">dispatch</span> =&gt;</span> {
+  <span class="hljs-keyword">return</span> {
+    <span class="hljs-comment">// explicitly forwarding arguments</span>
+    <span class="hljs-attr">onClick</span>: <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> dispatch(trackClick(event)),
+
+    <span class="hljs-comment">// implicitly forwarding arguments</span>
+    <span class="hljs-attr">onReceiveImpressions</span>: <span class="hljs-function">(<span class="hljs-params">...impressions</span>) =&gt;</span>
+      dispatch(trackImpressions(impressions))
+  }
+}
+</code></pre>
+<p><strong><code>ownProps</code> ( optional )</strong></p>
+<p>If your <code>mapDispatchToProps</code> function is declared as taking two parameters, it will be called with <code>dispatch</code> as the first parameter and the <code>props</code> passed to the connected component as the second parameter, and will be re-invoked whenever the connected component receives new props.</p>
+<p>This means, instead of re-binding new <code>props</code> to action dispatchers upon component re-rendering, you may do so when your component's <code>props</code> change.</p>
+<pre><code class="hljs css language-js"><span class="hljs-comment">// binds on component re-rendering</span>
+;<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =&gt;</span> this.props.toggleTodo(this.props.todoId)} /&gt;</span>
+
+<span class="hljs-comment">// binds on `props` change</span>
+<span class="hljs-keyword">const</span> mapDispatchToProps = <span class="hljs-function">(<span class="hljs-params">dispatch, ownProps</span>) =&gt;</span> {
+  <span class="hljs-attr">toggleTodo</span>: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> dispatch(toggleTodo(ownProps.todoId))
+}
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="return"></a><a href="#return" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Return</h3>
+<p>Your <code>mapDispatchToProps</code> function should return a plain object:</p>
+<ul>
+<li>Each field in the object will become a separate prop for your own component, and the value should normally be a function that dispatches an action when called.</li>
+<li>If you use action creators ( as oppose to plain object actions ) inside <code>dispatch</code>, it is a convention to simply name the field key the same name as the action creator:</li>
+</ul>
+<pre><code class="hljs css language-js"><span class="hljs-keyword">const</span> increment = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> ({ <span class="hljs-attr">type</span>: <span class="hljs-string">'INCREMENT'</span> })
+<span class="hljs-keyword">const</span> decrement = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> ({ <span class="hljs-attr">type</span>: <span class="hljs-string">'DECREMENT'</span> })
+<span class="hljs-keyword">const</span> reset = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> ({ <span class="hljs-attr">type</span>: <span class="hljs-string">'RESET'</span> })
+
+<span class="hljs-keyword">const</span> mapDispatchToProps = <span class="hljs-function"><span class="hljs-params">dispatch</span> =&gt;</span> {
+  <span class="hljs-keyword">return</span> {
+    <span class="hljs-comment">// dispatching actions returned by action creators</span>
+    <span class="hljs-attr">increment</span>: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> dispatch(increment()),
+    <span class="hljs-attr">decrement</span>: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> dispatch(decrement()),
+    <span class="hljs-attr">reset</span>: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> dispatch(reset())
+  }
+}
+</code></pre>
+<p>The return of the <code>mapDispatchToProps</code> function will be merged to your connected component as props. You may call them directly to dispatch its action.</p>
+<pre><code class="hljs css language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Counter</span>(<span class="hljs-params">{ count, increment, decrement, reset }</span>) </span>{
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{decrement}</span>&gt;</span>-<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>{count}<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{increment}</span>&gt;</span>+<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{reset}</span>&gt;</span>reset<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+  )
+}
+</code></pre>
+<p>(Full code of the Counter example is <a href="https://codesandbox.io/s/yv6kqo1yw9">in this CodeSandbox</a>)</p>
+<h3><a class="anchor" aria-hidden="true" id="defining-the-mapdispatchtoprops-function-with-bindactioncreators"></a><a href="#defining-the-mapdispatchtoprops-function-with-bindactioncreators" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Defining the <code>mapDispatchToProps</code> Function with <code>bindActionCreators</code></h3>
+<p>Wrapping these functions by hand is tedious, so Redux provides a function to simplify that.</p>
+<blockquote>
+<p><code>bindActionCreators</code> turns an object whose values are <a href="https://redux.js.org/glossary#action-creator">action creators</a>, into an object with the same keys, but with every action creator wrapped into a <a href="https://redux.js.org/api/store#dispatch"><code>dispatch</code></a> call so they may be invoked directly. See <a href="http://redux.js.org/docs/api/bindactioncreators">Redux Docs on <code>bindActionCreators</code></a></p>
+</blockquote>
+<p><code>bindActionCreators</code> accepts two parameters:</p>
+<ol>
+<li>A <strong><code>function</code></strong> (an action creator) or an <strong><code>object</code></strong> (each field an action creator)</li>
+<li><code>dispatch</code></li>
+</ol>
+<p>The wrapper functions generated by <code>bindActionCreators</code> will automatically forward all of their arguments, so you don't need to do that by hand.</p>
+<pre><code class="hljs css language-js"><span class="hljs-keyword">import</span> { bindActionCreators } <span class="hljs-keyword">from</span> <span class="hljs-string">'redux'</span>
+
+<span class="hljs-keyword">const</span> increment = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> ({ <span class="hljs-attr">type</span>: <span class="hljs-string">'INCREMENT'</span> })
+<span class="hljs-keyword">const</span> decrement = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> ({ <span class="hljs-attr">type</span>: <span class="hljs-string">'DECREMENT'</span> })
+<span class="hljs-keyword">const</span> reset = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> ({ <span class="hljs-attr">type</span>: <span class="hljs-string">'RESET'</span> })
+
+<span class="hljs-comment">// binding an action creator</span>
+<span class="hljs-comment">// returns (...args) =&gt; dispatch(increment(...args))</span>
+<span class="hljs-keyword">const</span> boundIncrement = bindActionCreators(increment, dispatch)
+
+<span class="hljs-comment">// binding an object full of action creators</span>
+<span class="hljs-keyword">const</span> boundActionCreators = bindActionCreators(
+  { increment, decrement, reset },
+  dispatch
+)
+<span class="hljs-comment">// returns</span>
+<span class="hljs-comment">// {</span>
+<span class="hljs-comment">//   increment: (...args) =&gt; dispatch(increment(...args)),</span>
+<span class="hljs-comment">//   decrement: (...args) =&gt; dispatch(decrement(...args)),</span>
+<span class="hljs-comment">//   reset: (...args) =&gt; dispatch(reset(...args)),</span>
+<span class="hljs-comment">// }</span>
+</code></pre>
+<p>To use <code>bindActionCreators</code> in our <code>mapDispatchToProps</code> function:</p>
+<pre><code class="hljs css language-js"><span class="hljs-keyword">import</span> { bindActionCreators } <span class="hljs-keyword">from</span> <span class="hljs-string">'redux'</span>
+<span class="hljs-comment">// ...</span>
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">mapDispatchToProps</span>(<span class="hljs-params">dispatch</span>) </span>{
+  <span class="hljs-keyword">return</span> bindActionCreators({ increment, decrement, reset }, dispatch)
+}
+
+<span class="hljs-comment">// component receives props.increment, props.decrement, props.reset</span>
+connect(
+  <span class="hljs-literal">null</span>,
+  mapDispatchToProps
+)(Counter)
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="manually-injecting-dispatch"></a><a href="#manually-injecting-dispatch" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Manually Injecting <code>dispatch</code></h3>
+<p>If the <code>mapDispatchToProps</code> argument is supplied, the component will no longer receive the default <code>dispatch</code>. You may bring it back by adding it manually to the return of your <code>mapDispatchToProps</code>, although most of the time you shouldn’t need to do this:</p>
+<pre><code class="hljs css language-js"><span class="hljs-keyword">import</span> { bindActionCreators } <span class="hljs-keyword">from</span> <span class="hljs-string">'redux'</span>
+<span class="hljs-comment">// ...</span>
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">mapDispatchToProps</span>(<span class="hljs-params">dispatch</span>) </span>{
+  <span class="hljs-keyword">return</span> {
+    dispatch,
+    ...bindActionCreators({ increment, decrement, reset }, dispatch)
+  }
+}
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="defining-mapdispatchtoprops-as-an-object"></a><a href="#defining-mapdispatchtoprops-as-an-object" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Defining <code>mapDispatchToProps</code> As An Object</h2>
+<p>You’ve seen that the setup for dispatching Redux actions in a React component follows a very similar process: define an action creator, wrap it in another function that looks like <code>(…args) =&gt; dispatch(actionCreator(…args))</code>, and pass that wrapper function as a prop to your component.</p>
+<p>Because this is so common, <code>connect</code> supports an “object shorthand” form for the <code>mapDispatchToProps</code> argument: if you pass an object full of action creators instead of a function, <code>connect</code> will automatically call <code>bindActionCreators</code> for you internally.</p>
+<p><strong>We recommend always using the “object shorthand” form of <code>mapDispatchToProps</code>, unless you have a specific reason to customize the dispatching behavior.</strong></p>
+<p>Note that:</p>
+<ul>
+<li>Each field of the <code>mapDispatchToProps</code> object is assumed to be an action creator</li>
+<li>Your component will no longer receive <code>dispatch</code> as a prop</li>
+</ul>
+<pre><code class="hljs css language-js"><span class="hljs-comment">// React Redux does this for you automatically:</span>
+dispatch =&gt; bindActionCreators(mapDispatchToProps, dispatch)
+</code></pre>
+<p>Therefore, our <code>mapDispatchToProps</code> can simply be:</p>
+<pre><code class="hljs css language-js"><span class="hljs-keyword">const</span> mapDispatchToProps = {
+  increment,
+  decrement,
+  reset
+}
+</code></pre>
+<p>Since the actual name of the variable is up to you, you might want to give it a name like <code>actionCreators</code>, or even define the object inline in the call to <code>connect</code>:</p>
+<pre><code class="hljs css language-js"><span class="hljs-keyword">import</span> {increment, decrement, reset} <span class="hljs-keyword">from</span> <span class="hljs-string">"./counterActions"</span>;
+
+<span class="hljs-keyword">const</span> actionCreators = {
+  increment,
+  decrement,
+  reset
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> connect(mapState, actionCreators)(Counter);
+
+<span class="hljs-comment">// or</span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> connect(
+  mapState,
+  { increment, decrement, reset }
+)(Counter);
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="common-problems"></a><a href="#common-problems" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Common Problems</h2>
+<h3><a class="anchor" aria-hidden="true" id="why-is-my-component-not-receiving-dispatch"></a><a href="#why-is-my-component-not-receiving-dispatch" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Why is my component not receiving <code>dispatch</code>?</h3>
+<p>Also known as</p>
+<pre><code class="hljs css language-js"><span class="hljs-built_in">TypeError</span>: <span class="hljs-keyword">this</span>.props.dispatch is not a <span class="hljs-function"><span class="hljs-keyword">function</span>
+</span></code></pre>
+<p>This is a common error that happens when you try to call <code>this.props.dispatch</code> , but <code>dispatch</code> is not injected to your component.</p>
+<p><code>dispatch</code> is injected to your component <em>only</em> when:</p>
+<p><strong>1. You do not provide <code>mapDispatchToProps</code></strong></p>
+<p>The default <code>mapDispatchToProps</code> is simply <code>dispatch =&gt; ({ dispatch })</code>. If you do not provide <code>mapDispatchToProps</code>, <code>dispatch</code> will be provided as mentioned above.</p>
+<p>In another words, if you do:</p>
+<pre><code class="hljs css language-js"><span class="hljs-comment">// component receives `dispatch`</span>
+connect(mapStateToProps <span class="hljs-comment">/** no second argument*/</span>)(Component)
+</code></pre>
+<p><strong>2. Your customized <code>mapDispatchToProps</code> function return specifically contains <code>dispatch</code></strong></p>
+<p>You may bring back <code>dispatch</code> by providing your customized <code>mapDispatchToProps</code> function:</p>
+<pre><code class="hljs css language-js"><span class="hljs-keyword">const</span> mapDispatchToProps = <span class="hljs-function"><span class="hljs-params">dispatch</span> =&gt;</span> {
+  <span class="hljs-keyword">return</span> {
+    <span class="hljs-attr">increment</span>: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> dispatch(increment()),
+    <span class="hljs-attr">decrement</span>: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> dispatch(decrement()),
+    <span class="hljs-attr">reset</span>: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> dispatch(reset()),
+    dispatch
+  }
+}
+</code></pre>
+<p>Or alternatively, with <code>bindActionCreators</code>:</p>
+<pre><code class="hljs css language-js"><span class="hljs-keyword">import</span> { bindActionCreators } <span class="hljs-keyword">from</span> <span class="hljs-string">'redux'</span>
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">mapDispatchToProps</span>(<span class="hljs-params">dispatch</span>) </span>{
+  <span class="hljs-keyword">return</span> {
+    dispatch,
+    ...bindActionCreators({ increment, decrement, reset }, dispatch)
+  }
+}
+</code></pre>
+<p>See <a href="https://github.com/reduxjs/react-redux/issues/255">this error in action in Redux’s GitHub issue #255</a>.</p>
+<p>There are discussions regarding whether to provide <code>dispatch</code> to your components when you specify <code>mapDispatchToProps</code> ( <a href="https://github.com/reduxjs/react-redux/issues/255#issuecomment-172089874">Dan Abramov’s response to #255</a> ). You may read them for further understanding of the current implementation intention.</p>
+<h3><a class="anchor" aria-hidden="true" id="can-i-mapdispatchtoprops-without-mapstatetoprops-in-redux"></a><a href="#can-i-mapdispatchtoprops-without-mapstatetoprops-in-redux" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Can I <code>mapDispatchToProps</code> without <code>mapStateToProps</code> in Redux?</h3>
+<p>Yes. You can skip the first parameter by passing <code>undefined</code> or <code>null</code>. Your component will not subscribe to the store, and will still receive the dispatch props defined by <code>mapDispatchToProps</code>.</p>
+<pre><code class="hljs css language-js">connect(
+  <span class="hljs-literal">null</span>,
+  mapDispatchToProps
+)(MyComponent)
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="can-i-call-storedispatch"></a><a href="#can-i-call-storedispatch" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Can I call <code>store.dispatch</code>?</h3>
+<p>It's an anti-pattern to interact with the store directly in a React component, whether it's an explicit import of the store or accessing it via context (see the <a href="https://redux.js.org/faq/storesetup#can-or-should-i-create-multiple-stores-can-i-import-my-store-directly-and-use-it-in-components-myself">Redux FAQ entry on store setup</a> for more details). Let React Redux’s <code>connect</code> handle the access to the store, and use the <code>dispatch</code> it passes to the props to dispatch actions.</p>
+<h2><a class="anchor" aria-hidden="true" id="links-and-references"></a><a href="#links-and-references" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Links and References</h2>
+<p><strong>Tutorials</strong></p>
+<ul>
+<li><a href="https://daveceddia.com/redux-mapdispatchtoprops-object-form/">You Might Not Need the <code>mapDispatchToProps</code> Function</a></li>
+</ul>
+<p><strong>Related Docs</strong></p>
+<ul>
+<li><a href="https://redux.js.org/api/bindactioncreators">Redux Doc on <code>bindActionCreators</code></a></li>
+</ul>
+<p><strong>Q&amp;A</strong></p>
+<ul>
+<li><a href="https://stackoverflow.com/questions/34458261/how-to-get-simple-dispatch-from-this-props-using-connect-w-redux">How to get simple dispatch from <code>this.props</code> using connect with Redux?</a></li>
+<li><a href="https://github.com/reduxjs/react-redux/issues/255"><code>this.props.dispatch</code> is <code>undefined</code> if using <code>mapDispatchToProps</code></a></li>
+<li><a href="https://github.com/reduxjs/redux/issues/916">Do not call <code>store.dispatch</code>, call <code>this.props.dispatch</code> injected by <code>connect</code> instead</a></li>
+<li><a href="https://stackoverflow.com/questions/47657365/can-i-mapdispatchtoprops-without-mapstatetoprops-in-redux">Can I <code>mapDispatchToProps</code> without <code>mapStateToProps</code> in Redux?</a></li>
+<li><a href="https://redux.js.org/faq/reactredux">Redux Doc FAQ: React Redux</a></li>
+</ul>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/react-redux/6.x/using-react-redux/connect-mapstate"><span class="arrow-prev">← </span><span class="function-name-prevnext">Connect: Extracting Data with mapStateToProps</span></a><a class="docs-next button" href="/react-redux/6.x/using-react-redux/accessing-store"><span>Accessing the Store</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#approaches-for-dispatching">Approaches for Dispatching</a><ul class="toc-headings"><li><a href="#default-dispatch-as-a-prop">Default: <code>dispatch</code> as a Prop</a></li><li><a href="#providing-a-mapdispatchtoprops-parameter">Providing A <code>mapDispatchToProps</code> Parameter</a></li></ul></li><li><a href="#two-forms-of-mapdispatchtoprops">Two Forms of <code>mapDispatchToProps</code></a></li><li><a href="#defining-mapdispatchtoprops-as-a-function">Defining <code>mapDispatchToProps</code> As A Function</a><ul class="toc-headings"><li><a href="#arguments">Arguments</a></li><li><a href="#return">Return</a></li><li><a href="#defining-the-mapdispatchtoprops-function-with-bindactioncreators">Defining the <code>mapDispatchToProps</code> Function with <code>bindActionCreators</code></a></li><li><a href="#manually-injecting-dispatch">Manually Injecting <code>dispatch</code></a></li></ul></li><li><a href="#defining-mapdispatchtoprops-as-an-object">Defining <code>mapDispatchToProps</code> As An Object</a></li><li><a href="#common-problems">Common Problems</a><ul class="toc-headings"><li><a href="#why-is-my-component-not-receiving-dispatch">Why is my component not receiving <code>dispatch</code>?</a></li><li><a href="#can-i-mapdispatchtoprops-without-mapstatetoprops-in-redux">Can I <code>mapDispatchToProps</code> without <code>mapStateToProps</code> in Redux?</a></li><li><a href="#can-i-call-storedispatch">Can I call <code>store.dispatch</code>?</a></li></ul></li><li><a href="#links-and-references">Links and References</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/react-redux/" class="nav-home"><img src="/react-redux/img/redux_white.svg" alt="React Redux" width="66" height="58"/></a><div><h5>Docs</h5><a href="/react-redux/introduction/quick-start">Introduction</a><a href="/react-redux/using-react-redux/connect-mapstate">Using React Redux</a><a href="/react-redux/api/connect">API Reference</a><a href="/react-redux/troubleshooting">Guides</a></div><div><h5>Community</h5><a href="http://stackoverflow.com/questions/tagged/react-redux" target="_blank" rel="noreferrer noopener">Stack Overflow</a><a href="https://discord.gg/0ZcbPKXt5bZ6au5t">Discord</a></div><div><h5>More</h5><a href="https://github.com/reduxjs/react-redux/">GitHub</a><a class="github-button" href="https://github.com/reduxjs/react-redux" data-icon="octicon-star" data-count-href="/reduxjs/react-redux/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a><a href="https://www.netlify.com"><img src="https://www.netlify.com/img/global/badges/netlify-light.svg" alt="Deploys by Netlify"/></a></div></section><section class="copyright">Copyright (c) 2015-present Dan Abramov and the Redux documentation authors.<br/>Some icons copyright <a href="https://fontawesome.com/license/free" style="color:white">Font Awesome</a> and <a href="https://thenounproject.com" style="color:white">Noun Project</a> (<a href="https://thenounproject.com/term/certificate/1945625/" style="color:white">prasong tadoungsorn</a>, <a href="https://thenounproject.com/term/box/1664404/" style="color:white">Vladimir Belochkin</a>, <a href="https://thenounproject.com/term/rocket/1245262/" style="color:white">Atif Arshad</a>)</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+                document.addEventListener('keyup', function(e) {
+                  if (e.target !== document.body) {
+                    return;
+                  }
+                  // keyCode for '/' (slash)
+                  if (e.keyCode === 191) {
+                    const search = document.getElementById('search_input_react');
+                    search && search.focus();
+                  }
+                });
+              </script><script>
+              var search = docsearch({
+                
+                apiKey: '2d058d216b7fd5d68d481fd48ee72c06',
+                indexName: 'react-redux',
+                inputSelector: '#search_input_react',
+                algoliaOptions: {}
+              });
+            </script><script src="http://localhost:undefined/livereload.js"></script></body></html>

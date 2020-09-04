@@ -1,0 +1,406 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Api · React Redux</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="# API"/><meta name="docsearch:version" content="6.x"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Api · React Redux"/><meta property="og:type" content="website"/><meta property="og:url" content="https://josephmg.github.io/react-redux/"/><meta property="og:description" content="# API"/><meta property="og:image" content="https://josephmg.github.io/react-redux/img/redux-logo-landscape.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://josephmg.github.io/react-redux/img/redux-logo-twitter.png"/><link rel="shortcut icon" href="/react-redux/img/favicon/favicon.ico"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/monokai.min.css"/><script>
+              (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+              (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+              m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+              })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+              ga('create', 'UA-130598673-2', 'auto');
+              ga('send', 'pageview');
+            </script><script type="text/javascript" src="/scripts/sidebarScroll.js"></script><script type="text/javascript" src="/scripts/codeblock.js"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="/react-redux/js/scrollSpy.js"></script><link rel="stylesheet" href="/react-redux/css/main.css"/><script src="/react-redux/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/react-redux/"><img class="logo" src="/react-redux/img/redux_white.svg" alt="React Redux"/><h2 class="headerTitleWithLogo">React Redux</h2></a><a href="/react-redux/versions"><h3>6.x</h3></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/react-redux/6.x/introduction/quick-start" target="_self">Quick Start</a></li><li class=""><a href="/react-redux/6.x/using-react-redux/connect-mapstate" target="_self">Using React Redux</a></li><li class=""><a href="/react-redux/6.x/api/connect" target="_self">API</a></li><li class=""><a href="https://www.github.com/reduxjs/react-redux" target="_self">Github</a></li><li class=""><a href="/introduction/quick-start#help-and-discussion" target="_self">Need help?</a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"></header><article><div><span><h1><a class="anchor" aria-hidden="true" id="api"></a><a href="#api" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>API</h1>
+<p><a id="provider"></a></p>
+<h2><a class="anchor" aria-hidden="true" id="provider"></a><a href="#provider" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Provider</h2>
+<p>Makes the Redux store available to the <code>connect()</code> calls in the component hierarchy below. Normally, you can’t use <code>connect()</code> without wrapping a parent or ancestor component in <code>&lt;Provider&gt;</code>.</p>
+<p>If you <em>really</em> need to, you can manually pass <code>store</code> as a prop to every <code>connect()</code>ed component, but we only recommend to do this for stubbing <code>store</code> in unit tests, or in non-fully-React codebases. Normally, you should just use <code>&lt;Provider&gt;</code>.</p>
+<h3><a class="anchor" aria-hidden="true" id="props"></a><a href="#props" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Props</h3>
+<ul>
+<li><code>store</code> (<em><a href="https://redux.js.org/api-reference/store">Redux Store</a></em>): The single Redux store in your application.</li>
+<li><code>children</code> (<em>ReactElement</em>) The root of your component hierarchy.</li>
+</ul>
+<h3><a class="anchor" aria-hidden="true" id="example"></a><a href="#example" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Example</h3>
+<h4><a class="anchor" aria-hidden="true" id="vanilla-react"></a><a href="#vanilla-react" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Vanilla React</h4>
+<pre><code class="hljs css language-jsx">ReactDOM.render(
+  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Provider</span> <span class="hljs-attr">store</span>=<span class="hljs-string">{store}</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">MyRootComponent</span> /&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">Provider</span>&gt;</span></span>,
+  rootEl
+)
+</code></pre>
+<h4><a class="anchor" aria-hidden="true" id="react-router"></a><a href="#react-router" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>React Router</h4>
+<pre><code class="hljs css language-jsx">ReactDOM.render(
+  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Provider</span> <span class="hljs-attr">store</span>=<span class="hljs-string">{store}</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">Router</span> <span class="hljs-attr">history</span>=<span class="hljs-string">{history}</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=<span class="hljs-string">"/"</span> <span class="hljs-attr">component</span>=<span class="hljs-string">{App}</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=<span class="hljs-string">"foo"</span> <span class="hljs-attr">component</span>=<span class="hljs-string">{Foo}/</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=<span class="hljs-string">"bar"</span> <span class="hljs-attr">component</span>=<span class="hljs-string">{Bar}/</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-name">Route</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">Router</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">Provider</span>&gt;</span></span>,
+  <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'root'</span>)
+)
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="connect"></a><a href="#connect" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>connect</h2>
+<pre><code class="hljs"><span class="hljs-selector-tag">connect</span>(<span class="hljs-selector-attr">[mapStateToProps]</span>, <span class="hljs-selector-attr">[mapDispatchToProps]</span>, <span class="hljs-selector-attr">[mergeProps]</span>, <span class="hljs-selector-attr">[options]</span>)
+</code></pre>
+<p>Connects a React component to a Redux store. <code>connect</code> is a facade around <code>connectAdvanced</code>, providing a convenient API for the most common use cases.</p>
+<p>It does not modify the component class passed to it; instead, it <em>returns</em> a new, connected component class for you to use.</p>
+<h3><a class="anchor" aria-hidden="true" id="arguments"></a><a href="#arguments" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Arguments</h3>
+<ul>
+<li><p>[<code>mapStateToProps(state, [ownProps]): stateProps</code>] (<em>Function</em>): If this argument is specified, the new component will subscribe to Redux store updates. This means that any time the store is updated, <code>mapStateToProps</code> will be called. The results of <code>mapStateToProps</code> must be a plain object, which will be merged into the component’s props. If you don't want to subscribe to store updates, pass <code>null</code> or <code>undefined</code> in place of <code>mapStateToProps</code>.</p>
+<p>If your <code>mapStateToProps</code> function is declared as taking two parameters, it will be called with the store state as the first parameter and the props passed to the connected component as the second parameter, and will also be re-invoked whenever the connected component receives new props as determined by shallow equality comparisons.  (The second parameter is normally referred to as <code>ownProps</code> by convention.)</p>
+<blockquote>
+<p>Note: in advanced scenarios where you need more control over the rendering performance, <code>mapStateToProps()</code> can also return a function. In this case, <em>that</em> function will be used as <code>mapStateToProps()</code> for a particular component instance. This allows you to do per-instance memoization. You can refer to <a href="https://github.com/reduxjs/react-redux/pull/279">#279</a> and the tests it adds for more details. Most apps never need this.</p>
+</blockquote>
+<blockquote>
+<p>The <code>mapStateToProps</code> function's first argument is the entire Redux store’s state and it returns an object to be passed as props. It is often called a <strong>selector</strong>. Use <a href="https://github.com/reduxjs/reselect">reselect</a> to efficiently compose selectors and <a href="https://redux.js.org/recipes/computing-derived-data">compute derived data</a>.</p>
+</blockquote></li>
+<li><p>[<code>mapDispatchToProps(dispatch, [ownProps]): dispatchProps</code>] (<em>Object</em> or <em>Function</em>): If an object is passed, each function inside it is assumed to be a Redux action creator. An object with the same function names, but with every action creator wrapped into a <code>dispatch</code> call so they may be invoked directly, will be merged into the component’s props.</p>
+<p>If a function is passed, it will be given <code>dispatch</code> as the first parameter.  It’s up to you to return an object that somehow uses <code>dispatch</code> to bind action creators in your own way. (Tip: you may use the <a href="https://redux.js.org/api-reference/bindactioncreators"><code>bindActionCreators()</code></a> helper from Redux.)</p>
+<p>If your <code>mapDispatchToProps</code> function is declared as taking two parameters, it will be called with <code>dispatch</code> as the first parameter and the props passed to the connected component as the second parameter, and will be re-invoked whenever the connected component receives new props.  (The second parameter is normally referred to as <code>ownProps</code> by convention.)</p>
+<p>If you do not supply your own <code>mapDispatchToProps</code> function or object full of action creators, the default <code>mapDispatchToProps</code> implementation just injects <code>dispatch</code> into your component’s props.</p>
+<blockquote>
+<p>Note: in advanced scenarios where you need more control over the rendering performance, <code>mapDispatchToProps()</code> can also return a function. In this case, <em>that</em> function will be used as <code>mapDispatchToProps()</code> for a particular component instance. This allows you to do per-instance memoization. You can refer to <a href="https://github.com/reduxjs/react-redux/pull/279">#279</a> and the tests it adds for more details. Most apps never need this.</p>
+</blockquote></li>
+<li><p>[<code>mergeProps(stateProps, dispatchProps, ownProps): props</code>] (<em>Function</em>): If specified, it is passed the result of <code>mapStateToProps()</code>, <code>mapDispatchToProps()</code>, and the parent <code>props</code>. The plain object you return from it will be passed as props to the wrapped component. You may specify this function to select a slice of the state based on props, or to bind action creators to a particular variable from props. If you omit it, <code>Object.assign({}, ownProps, stateProps, dispatchProps)</code> is used by default.</p></li>
+<li><p>[<code>options</code>] <em>(Object)</em> If specified, further customizes the behavior of the connector. In addition to the options passable to <code>connectAdvanced()</code> (see those below), <code>connect()</code> accepts these additional options:</p>
+<ul>
+<li>[<code>pure</code>] <em>(Boolean)</em>: If true, <code>connect()</code> will avoid re-renders and calls to <code>mapStateToProps</code>, <code>mapDispatchToProps</code>, and <code>mergeProps</code> if the relevant state/props objects remain equal based on their respective equality checks. Assumes that the wrapped component is a “pure” component and does not rely on any input or state other than its props and the selected Redux store’s state. Default value: <code>true</code></li>
+<li>[<code>areStatesEqual</code>] <em>(Function)</em>: When pure, compares incoming store state to its previous value. Default value: <code>strictEqual (===)</code></li>
+<li>[<code>areOwnPropsEqual</code>] <em>(Function)</em>: When pure, compares incoming props to its previous value. Default value: <code>shallowEqual</code></li>
+<li>[<code>areStatePropsEqual</code>] <em>(Function)</em>: When pure, compares the result of <code>mapStateToProps</code> to its previous value. Default value: <code>shallowEqual</code></li>
+<li>[<code>areMergedPropsEqual</code>] <em>(Function)</em>: When pure, compares the result of <code>mergeProps</code> to its previous value. Default value: <code>shallowEqual</code></li>
+<li>[<code>storeKey</code>] <em>(String)</em>: The key of the context from where to read the store. You probably only need this if you are in the inadvisable position of having multiple stores. Default value: <code>'store'</code></li>
+</ul></li>
+</ul>
+<h4><a class="anchor" aria-hidden="true" id="the-arity-of-mapstatetoprops-and-mapdispatchtoprops-determines-whether-they-receive-ownprops"></a><a href="#the-arity-of-mapstatetoprops-and-mapdispatchtoprops-determines-whether-they-receive-ownprops" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>The arity of mapStateToProps and mapDispatchToProps determines whether they receive ownProps</h4>
+<blockquote>
+<p>Note: <code>ownProps</code> <strong>is not passed</strong> to <code>mapStateToProps</code> and <code>mapDispatchToProps</code> if the formal definition of the function contains one mandatory parameter (function has length 1). For example, functions defined like below won't receive <code>ownProps</code> as the second argument.</p>
+</blockquote>
+<pre><code class="hljs css language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">mapStateToProps</span>(<span class="hljs-params">state</span>) </span>{
+  <span class="hljs-built_in">console</span>.log(state); <span class="hljs-comment">// state</span>
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">arguments</span>[<span class="hljs-number">1</span>]); <span class="hljs-comment">// undefined</span>
+}
+</code></pre>
+<pre><code class="hljs css language-js"><span class="hljs-keyword">const</span> mapStateToProps = <span class="hljs-function">(<span class="hljs-params">state, ownProps = {}</span>) =&gt;</span> {
+  <span class="hljs-built_in">console</span>.log(state); <span class="hljs-comment">// state</span>
+  <span class="hljs-built_in">console</span>.log(ownProps); <span class="hljs-comment">// {}</span>
+}
+</code></pre>
+<p>Functions with no mandatory parameters or two parameters <strong>will receive</strong> <code>ownProps</code>.</p>
+<pre><code class="hljs css language-js"><span class="hljs-keyword">const</span> mapStateToProps = <span class="hljs-function">(<span class="hljs-params">state, ownProps</span>) =&gt;</span> {
+  <span class="hljs-built_in">console</span>.log(state); <span class="hljs-comment">// state</span>
+  <span class="hljs-built_in">console</span>.log(ownProps); <span class="hljs-comment">// ownProps</span>
+}
+</code></pre>
+<pre><code class="hljs css language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">mapStateToProps</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">arguments</span>[<span class="hljs-number">0</span>]); <span class="hljs-comment">// state</span>
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">arguments</span>[<span class="hljs-number">1</span>]); <span class="hljs-comment">// ownProps</span>
+}
+</code></pre>
+<pre><code class="hljs css language-js"><span class="hljs-keyword">const</span> mapStateToProps = <span class="hljs-function">(<span class="hljs-params">...args</span>) =&gt;</span> {
+  <span class="hljs-built_in">console</span>.log(args[<span class="hljs-number">0</span>]); <span class="hljs-comment">// state</span>
+  <span class="hljs-built_in">console</span>.log(args[<span class="hljs-number">1</span>]); <span class="hljs-comment">// ownProps</span>
+}
+</code></pre>
+<h4><a class="anchor" aria-hidden="true" id="optimizing-connect-when-optionspure-is-true"></a><a href="#optimizing-connect-when-optionspure-is-true" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Optimizing connect when options.pure is true</h4>
+<p>When <code>options.pure</code> is true, <code>connect</code> performs several equality checks that are used to avoid unnecessary calls to <code>mapStateToProps</code>, <code>mapDispatchToProps</code>, <code>mergeProps</code>, and ultimately to <code>render</code>. These include <code>areStatesEqual</code>, <code>areOwnPropsEqual</code>, <code>areStatePropsEqual</code>, and <code>areMergedPropsEqual</code>. While the defaults are probably appropriate 99% of the time, you may wish to override them with custom implementations for performance or other reasons. Here are several examples:</p>
+<ul>
+<li><p>You may wish to override <code>areStatesEqual</code> if your <code>mapStateToProps</code> function is computationally expensive and is also only concerned with a small slice of your state. For example: <code>areStatesEqual: (next, prev) =&gt; prev.entities.todos === next.entities.todos</code>; this would effectively ignore state changes for everything but that slice of state.</p></li>
+<li><p>You may wish to override <code>areStatesEqual</code> to always return false (<code>areStatesEqual: () =&gt; false</code>) if you have impure reducers that mutate your store state. (This would likely impact the other equality checks as well, depending on your <code>mapStateToProps</code> function.)</p></li>
+<li><p>You may wish to override <code>areOwnPropsEqual</code> as a way to whitelist incoming props. You'd also have to implement <code>mapStateToProps</code>, <code>mapDispatchToProps</code> and <code>mergeProps</code> to also whitelist props. (It may be simpler to achieve this other ways, for example by using <a href="https://github.com/acdlite/recompose/blob/master/docs/API.md#mapprops">recompose's mapProps</a>.)</p></li>
+<li><p>You may wish to override <code>areStatePropsEqual</code> to use <code>strictEqual</code> if your <code>mapStateToProps</code> uses a memoized selector that will only return a new object if a relevant prop has changed. This would be a very slight performance improvement, since would avoid extra equality checks on individual props each time <code>mapStateToProps</code> is called.</p></li>
+<li><p>You may wish to override <code>areMergedPropsEqual</code> to implement a <code>deepEqual</code> if your selectors produce complex props. ex: nested objects, new arrays, etc. (The deep equal check should be faster than just re-rendering.)</p></li>
+</ul>
+<h3><a class="anchor" aria-hidden="true" id="returns"></a><a href="#returns" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Returns</h3>
+<p>A higher-order React component class that passes state and action creators into your component derived from the supplied arguments. This is created by <code>connectAdvanced</code>, and details of this higher-order component are covered there.</p>
+<p><a id="connect-examples"></a></p>
+<h4><a class="anchor" aria-hidden="true" id="examples"></a><a href="#examples" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Examples</h4>
+<h4><a class="anchor" aria-hidden="true" id="inject-just-dispatch-and-dont-listen-to-store"></a><a href="#inject-just-dispatch-and-dont-listen-to-store" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Inject just <code>dispatch</code> and don't listen to store</h4>
+<pre><code class="hljs css language-js"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> connect()(TodoApp)
+</code></pre>
+<h4><a class="anchor" aria-hidden="true" id="inject-all-action-creators--addtodo-completetodo--without-subscribing-to-the-store"></a><a href="#inject-all-action-creators--addtodo-completetodo--without-subscribing-to-the-store" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Inject all action creators  (<code>addTodo</code>, <code>completeTodo</code>, ...) without subscribing to the store</h4>
+<pre><code class="hljs css language-js"><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> actionCreators <span class="hljs-keyword">from</span> <span class="hljs-string">'./actionCreators'</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> connect(<span class="hljs-literal">null</span>, actionCreators)(TodoApp)
+</code></pre>
+<h4><a class="anchor" aria-hidden="true" id="inject-dispatch-and-every-field-in-the-global-state"></a><a href="#inject-dispatch-and-every-field-in-the-global-state" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Inject <code>dispatch</code> and every field in the global state</h4>
+<blockquote>
+<p>Don’t do this! It kills any performance optimizations because <code>TodoApp</code> will rerender after every state change.<br>
+It’s better to have more granular <code>connect()</code> on several components in your view hierarchy that each only<br>
+listen to a relevant slice of the state.</p>
+</blockquote>
+<pre><code class="hljs css language-js"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> connect(<span class="hljs-function"><span class="hljs-params">state</span> =&gt;</span> state)(TodoApp)
+</code></pre>
+<h4><a class="anchor" aria-hidden="true" id="inject-dispatch-and-todos"></a><a href="#inject-dispatch-and-todos" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Inject <code>dispatch</code> and <code>todos</code></h4>
+<pre><code class="hljs css language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">mapStateToProps</span>(<span class="hljs-params">state</span>) </span>{
+  <span class="hljs-keyword">return</span> { <span class="hljs-attr">todos</span>: state.todos }
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> connect(mapStateToProps)(TodoApp)
+</code></pre>
+<h4><a class="anchor" aria-hidden="true" id="inject-todos-and-all-action-creators"></a><a href="#inject-todos-and-all-action-creators" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Inject <code>todos</code> and all action creators</h4>
+<pre><code class="hljs css language-js"><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> actionCreators <span class="hljs-keyword">from</span> <span class="hljs-string">'./actionCreators'</span>
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">mapStateToProps</span>(<span class="hljs-params">state</span>) </span>{
+  <span class="hljs-keyword">return</span> { <span class="hljs-attr">todos</span>: state.todos }
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> connect(mapStateToProps, actionCreators)(TodoApp)
+</code></pre>
+<h4><a class="anchor" aria-hidden="true" id="inject-todos-and-all-action-creators-addtodo-completetodo--as-actions"></a><a href="#inject-todos-and-all-action-creators-addtodo-completetodo--as-actions" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Inject <code>todos</code> and all action creators (<code>addTodo</code>, <code>completeTodo</code>, ...) as <code>actions</code></h4>
+<pre><code class="hljs css language-js"><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> actionCreators <span class="hljs-keyword">from</span> <span class="hljs-string">'./actionCreators'</span>
+<span class="hljs-keyword">import</span> { bindActionCreators } <span class="hljs-keyword">from</span> <span class="hljs-string">'redux'</span>
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">mapStateToProps</span>(<span class="hljs-params">state</span>) </span>{
+  <span class="hljs-keyword">return</span> { <span class="hljs-attr">todos</span>: state.todos }
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">mapDispatchToProps</span>(<span class="hljs-params">dispatch</span>) </span>{
+  <span class="hljs-keyword">return</span> { <span class="hljs-attr">actions</span>: bindActionCreators(actionCreators, dispatch) }
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> connect(mapStateToProps, mapDispatchToProps)(TodoApp)
+</code></pre>
+<h4><a class="anchor" aria-hidden="true" id="inject-todos-and-a-specific-action-creator-addtodo"></a><a href="#inject-todos-and-a-specific-action-creator-addtodo" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Inject <code>todos</code> and a specific action creator (<code>addTodo</code>)</h4>
+<pre><code class="hljs css language-js"><span class="hljs-keyword">import</span> { addTodo } <span class="hljs-keyword">from</span> <span class="hljs-string">'./actionCreators'</span>
+<span class="hljs-keyword">import</span> { bindActionCreators } <span class="hljs-keyword">from</span> <span class="hljs-string">'redux'</span>
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">mapStateToProps</span>(<span class="hljs-params">state</span>) </span>{
+  <span class="hljs-keyword">return</span> { <span class="hljs-attr">todos</span>: state.todos }
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">mapDispatchToProps</span>(<span class="hljs-params">dispatch</span>) </span>{
+  <span class="hljs-keyword">return</span> bindActionCreators({ addTodo }, dispatch)
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> connect(mapStateToProps, mapDispatchToProps)(TodoApp)
+</code></pre>
+<h4><a class="anchor" aria-hidden="true" id="inject-todos-and-specific-action-creators-addtodo-and-deletetodo-with-shorthand-syntax"></a><a href="#inject-todos-and-specific-action-creators-addtodo-and-deletetodo-with-shorthand-syntax" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Inject <code>todos</code> and specific action creators (<code>addTodo</code> and <code>deleteTodo</code>) with shorthand syntax</h4>
+<pre><code class="hljs css language-js"><span class="hljs-keyword">import</span> { addTodo, deleteTodo } <span class="hljs-keyword">from</span> <span class="hljs-string">'./actionCreators'</span>
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">mapStateToProps</span>(<span class="hljs-params">state</span>) </span>{
+  <span class="hljs-keyword">return</span> { <span class="hljs-attr">todos</span>: state.todos }
+}
+
+<span class="hljs-keyword">const</span> mapDispatchToProps = {
+  addTodo,
+  deleteTodo
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> connect(mapStateToProps, mapDispatchToProps)(TodoApp)
+</code></pre>
+<h4><a class="anchor" aria-hidden="true" id="inject-todos-todoactioncreators-as-todoactions-and-counteractioncreators-as-counteractions"></a><a href="#inject-todos-todoactioncreators-as-todoactions-and-counteractioncreators-as-counteractions" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Inject <code>todos</code>, todoActionCreators as <code>todoActions</code>, and counterActionCreators as <code>counterActions</code></h4>
+<pre><code class="hljs css language-js"><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> todoActionCreators <span class="hljs-keyword">from</span> <span class="hljs-string">'./todoActionCreators'</span>
+<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> counterActionCreators <span class="hljs-keyword">from</span> <span class="hljs-string">'./counterActionCreators'</span>
+<span class="hljs-keyword">import</span> { bindActionCreators } <span class="hljs-keyword">from</span> <span class="hljs-string">'redux'</span>
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">mapStateToProps</span>(<span class="hljs-params">state</span>) </span>{
+  <span class="hljs-keyword">return</span> { <span class="hljs-attr">todos</span>: state.todos }
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">mapDispatchToProps</span>(<span class="hljs-params">dispatch</span>) </span>{
+  <span class="hljs-keyword">return</span> {
+    <span class="hljs-attr">todoActions</span>: bindActionCreators(todoActionCreators, dispatch),
+    <span class="hljs-attr">counterActions</span>: bindActionCreators(counterActionCreators, dispatch)
+  }
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> connect(mapStateToProps, mapDispatchToProps)(TodoApp)
+</code></pre>
+<h4><a class="anchor" aria-hidden="true" id="inject-todos-and-todoactioncreators-and-counteractioncreators-together-as-actions"></a><a href="#inject-todos-and-todoactioncreators-and-counteractioncreators-together-as-actions" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Inject <code>todos</code>, and todoActionCreators and counterActionCreators together as <code>actions</code></h4>
+<pre><code class="hljs css language-js"><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> todoActionCreators <span class="hljs-keyword">from</span> <span class="hljs-string">'./todoActionCreators'</span>
+<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> counterActionCreators <span class="hljs-keyword">from</span> <span class="hljs-string">'./counterActionCreators'</span>
+<span class="hljs-keyword">import</span> { bindActionCreators } <span class="hljs-keyword">from</span> <span class="hljs-string">'redux'</span>
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">mapStateToProps</span>(<span class="hljs-params">state</span>) </span>{
+  <span class="hljs-keyword">return</span> { <span class="hljs-attr">todos</span>: state.todos }
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">mapDispatchToProps</span>(<span class="hljs-params">dispatch</span>) </span>{
+  <span class="hljs-keyword">return</span> {
+    <span class="hljs-attr">actions</span>: bindActionCreators(<span class="hljs-built_in">Object</span>.assign({}, todoActionCreators, counterActionCreators), dispatch)
+  }
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> connect(mapStateToProps, mapDispatchToProps)(TodoApp)
+</code></pre>
+<h4><a class="anchor" aria-hidden="true" id="inject-todos-and-all-todoactioncreators-and-counteractioncreators-directly-as-props"></a><a href="#inject-todos-and-all-todoactioncreators-and-counteractioncreators-directly-as-props" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Inject <code>todos</code>, and all todoActionCreators and counterActionCreators directly as props</h4>
+<pre><code class="hljs css language-js"><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> todoActionCreators <span class="hljs-keyword">from</span> <span class="hljs-string">'./todoActionCreators'</span>
+<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> counterActionCreators <span class="hljs-keyword">from</span> <span class="hljs-string">'./counterActionCreators'</span>
+<span class="hljs-keyword">import</span> { bindActionCreators } <span class="hljs-keyword">from</span> <span class="hljs-string">'redux'</span>
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">mapStateToProps</span>(<span class="hljs-params">state</span>) </span>{
+  <span class="hljs-keyword">return</span> { <span class="hljs-attr">todos</span>: state.todos }
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">mapDispatchToProps</span>(<span class="hljs-params">dispatch</span>) </span>{
+  <span class="hljs-keyword">return</span> bindActionCreators(<span class="hljs-built_in">Object</span>.assign({}, todoActionCreators, counterActionCreators), dispatch)
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> connect(mapStateToProps, mapDispatchToProps)(TodoApp)
+</code></pre>
+<h4><a class="anchor" aria-hidden="true" id="inject-todos-of-a-specific-user-depending-on-props"></a><a href="#inject-todos-of-a-specific-user-depending-on-props" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Inject <code>todos</code> of a specific user depending on props</h4>
+<pre><code class="hljs css language-js"><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> actionCreators <span class="hljs-keyword">from</span> <span class="hljs-string">'./actionCreators'</span>
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">mapStateToProps</span>(<span class="hljs-params">state, ownProps</span>) </span>{
+  <span class="hljs-keyword">return</span> { <span class="hljs-attr">todos</span>: state.todos[ownProps.userId] }
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> connect(mapStateToProps)(TodoApp)
+</code></pre>
+<h4><a class="anchor" aria-hidden="true" id="inject-todos-of-a-specific-user-depending-on-props-and-inject-propsuserid-into-the-action"></a><a href="#inject-todos-of-a-specific-user-depending-on-props-and-inject-propsuserid-into-the-action" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Inject <code>todos</code> of a specific user depending on props, and inject <code>props.userId</code> into the action</h4>
+<pre><code class="hljs css language-js"><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> actionCreators <span class="hljs-keyword">from</span> <span class="hljs-string">'./actionCreators'</span>
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">mapStateToProps</span>(<span class="hljs-params">state</span>) </span>{
+  <span class="hljs-keyword">return</span> { <span class="hljs-attr">todos</span>: state.todos }
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">mergeProps</span>(<span class="hljs-params">stateProps, dispatchProps, ownProps</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-built_in">Object</span>.assign({}, ownProps, {
+    <span class="hljs-attr">todos</span>: stateProps.todos[ownProps.userId],
+    <span class="hljs-attr">addTodo</span>: <span class="hljs-function">(<span class="hljs-params">text</span>) =&gt;</span> dispatchProps.addTodo(ownProps.userId, text)
+  })
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> connect(mapStateToProps, actionCreators, mergeProps)(TodoApp)
+</code></pre>
+<h4><a class="anchor" aria-hidden="true" id="factory-functions"></a><a href="#factory-functions" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Factory functions</h4>
+<p>Factory functions can be used for performance optimizations</p>
+<pre><code class="hljs css language-js"><span class="hljs-keyword">import</span> { addTodo } <span class="hljs-keyword">from</span> <span class="hljs-string">'./actionCreators'</span>
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">mapStateToPropsFactory</span>(<span class="hljs-params">initialState, initialProps</span>) </span>{
+  <span class="hljs-keyword">const</span> getSomeProperty= createSelector(...);
+  <span class="hljs-keyword">const</span> anotherProperty = <span class="hljs-number">200</span> + initialState[initialProps.another];
+  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">state</span>)</span>{
+    <span class="hljs-keyword">return</span> {
+      anotherProperty,
+      <span class="hljs-attr">someProperty</span>: getSomeProperty(state),
+      <span class="hljs-attr">todos</span>: state.todos
+    }
+  }
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">mapDispatchToPropsFactory</span>(<span class="hljs-params">initialState, initialProps</span>) </span>{
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">goToSomeLink</span>(<span class="hljs-params"></span>)</span>{
+    initialProps.history.push(<span class="hljs-string">'some/link'</span>);
+  }
+  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">dispatch</span>)</span>{
+    <span class="hljs-keyword">return</span> {
+      addTodo
+    }
+  }
+}
+
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> connect(mapStateToPropsFactory, mapDispatchToPropsFactory)(TodoApp)
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="connectadvanced"></a><a href="#connectadvanced" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>connectAdvanced</h2>
+<pre><code class="hljs css language-js">connectAdvanced(selectorFactory, [connectOptions])
+</code></pre>
+<p>Connects a React component to a Redux store. It is the base for <code>connect()</code> but is less opinionated about how to combine <code>state</code>, <code>props</code>, and <code>dispatch</code> into your final props. It makes no assumptions about defaults or memoization of results, leaving those responsibilities to the caller.</p>
+<p>It does not modify the component class passed to it; instead, it <em>returns</em> a new, connected component class for you to use.</p>
+<h3><a class="anchor" aria-hidden="true" id="arguments-1"></a><a href="#arguments-1" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Arguments</h3>
+<ul>
+<li><p><code>selectorFactory(dispatch, factoryOptions): selector(state, ownProps): props</code> (<em>Function</em>): Initializes a selector function (during each instance's constructor). That selector function is called any time the connector component needs to compute new props, as a result of a store state change or receiving new props. The result of <code>selector</code> is expected to be a plain object, which is passed as the props to the wrapped component. If a consecutive call to <code>selector</code> returns the same object (<code>===</code>) as its previous call, the component will not be re-rendered. It's the responsibility of <code>selector</code> to return that previous object when appropriate.</p></li>
+<li><p>[<code>connectOptions</code>] <em>(Object)</em> If specified, further customizes the behavior of the connector.</p>
+<ul>
+<li><p>[<code>getDisplayName</code>] <em>(Function)</em>: computes the connector component's displayName property relative to that of the wrapped component. Usually overridden by wrapper functions. Default value: <code>name =&gt; 'ConnectAdvanced('+name+')'</code></p></li>
+<li><p>[<code>methodName</code>] <em>(String)</em>: shown in error messages. Usually overridden by wrapper functions. Default value: <code>'connectAdvanced'</code></p></li>
+<li><p>[<code>renderCountProp</code>] <em>(String)</em>: if defined, a property named this value will be added to the props passed to the wrapped component. Its value will be the number of times the component has been rendered, which can be useful for tracking down unnecessary re-renders. Default value: <code>undefined</code></p></li>
+<li><p>[<code>shouldHandleStateChanges</code>] <em>(Boolean)</em>: controls whether the connector component subscribes to redux store state changes. If set to false, it will only re-render when parent component re-renders. Default value:  <code>true</code></p></li>
+<li><p>[<code>storeKey</code>] <em>(String)</em>: the key of props/context to get the store. You probably only need this if you are in the inadvisable position of having multiple stores. Default value: <code>'store'</code></p></li>
+<li><p>[<code>withRef</code>] <em>(Boolean)</em>: If true, stores a ref to the wrapped component instance and makes it available via <code>getWrappedInstance()</code> method. Default value: <code>false</code></p></li>
+<li><p>Additionally, any extra options passed via <code>connectOptions</code> will be passed through to your <code>selectorFactory</code> in the <code>factoryOptions</code> argument.</p></li>
+</ul></li>
+</ul>
+<p><a id="connectAdvanced-returns"></a></p>
+<h3><a class="anchor" aria-hidden="true" id="returns-1"></a><a href="#returns-1" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Returns</h3>
+<p>A higher-order React component class that builds props from the store state and passes them to the wrapped component. A higher-order component is a function which accepts a component argument and returns a new component.</p>
+<h4><a class="anchor" aria-hidden="true" id="static-properties"></a><a href="#static-properties" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Static Properties</h4>
+<ul>
+<li><code>WrappedComponent</code> <em>(Component)</em>: The original component class passed to <code>connectAdvanced(...)(Component)</code>.</li>
+</ul>
+<h4><a class="anchor" aria-hidden="true" id="static-methods"></a><a href="#static-methods" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Static Methods</h4>
+<p>All the original static methods of the component are hoisted.</p>
+<h4><a class="anchor" aria-hidden="true" id="instance-methods"></a><a href="#instance-methods" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Instance Methods</h4>
+<h5><a class="anchor" aria-hidden="true" id="getwrappedinstance-reactcomponent"></a><a href="#getwrappedinstance-reactcomponent" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>getWrappedInstance(): ReactComponent</code></h5>
+<p>Returns the wrapped component instance. Only available if you pass <code>{ withRef: true }</code> as part of the <code>options</code> argument.</p>
+<h3><a class="anchor" aria-hidden="true" id="remarks"></a><a href="#remarks" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Remarks</h3>
+<ul>
+<li><p>Since <code>connectAdvanced</code> returns a higher-order component, it needs to be invoked two times. The first time with its arguments as described above, and a second time, with the component: <code>connectAdvanced(selectorFactory)(MyComponent)</code>.</p></li>
+<li><p><code>connectAdvanced</code> does not modify the passed React component. It returns a new, connected component, that you should use instead.</p></li>
+</ul>
+<p><a id="connectAdvanced-examples"></a></p>
+<h4><a class="anchor" aria-hidden="true" id="examples-1"></a><a href="#examples-1" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Examples</h4>
+<h4><a class="anchor" aria-hidden="true" id="inject-todos-of-a-specific-user-depending-on-props-and-inject-propsuserid-into-the-action-1"></a><a href="#inject-todos-of-a-specific-user-depending-on-props-and-inject-propsuserid-into-the-action-1" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Inject <code>todos</code> of a specific user depending on props, and inject <code>props.userId</code> into the action</h4>
+<pre><code class="hljs css language-js"><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> actionCreators <span class="hljs-keyword">from</span> <span class="hljs-string">'./actionCreators'</span>
+<span class="hljs-keyword">import</span> { bindActionCreators } <span class="hljs-keyword">from</span> <span class="hljs-string">'redux'</span>
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">selectorFactory</span>(<span class="hljs-params">dispatch</span>) </span>{
+  <span class="hljs-keyword">let</span> ownProps = {}
+  <span class="hljs-keyword">let</span> result = {}
+  <span class="hljs-keyword">const</span> actions = bindActionCreators(actionCreators, dispatch)
+  <span class="hljs-keyword">const</span> addTodo = <span class="hljs-function">(<span class="hljs-params">text</span>) =&gt;</span> actions.addTodo(ownProps.userId, text)
+  <span class="hljs-keyword">return</span> <span class="hljs-function">(<span class="hljs-params">nextState, nextOwnProps</span>) =&gt;</span> {
+    <span class="hljs-keyword">const</span> todos = nextState.todos[nextOwnProps.userId]
+    <span class="hljs-keyword">const</span> nextResult = { ...nextOwnProps, todos, addTodo }
+    ownProps = nextOwnProps
+    <span class="hljs-keyword">if</span> (!shallowEqual(result, nextResult)) result = nextResult
+    <span class="hljs-keyword">return</span> result
+  }
+}
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> connectAdvanced(selectorFactory)(TodoApp)
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="createprovider"></a><a href="#createprovider" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>createProvider</h2>
+<pre><code class="hljs css language-js">createProvider([storeKey])
+</code></pre>
+<p>Creates a new <code>&lt;Provider&gt;</code> which will set the Redux Store on the passed key of the context. You probably only need this if you are in the inadvisable position of having multiple stores. You will also need to pass the same <code>storeKey</code> to the <code>options</code> argument of <a href="#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options"><code>connect</code></a></p>
+<h3><a class="anchor" aria-hidden="true" id="arguments-2"></a><a href="#arguments-2" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Arguments</h3>
+<ul>
+<li>[<code>storeKey</code>] (<em>String</em>): The key of the context on which to set the store. Default value: <code>'store'</code></li>
+</ul>
+<h3><a class="anchor" aria-hidden="true" id="examples-2"></a><a href="#examples-2" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Examples</h3>
+<p>Before creating multiple stores, please go through this FAQ: <a href="http://redux.js.org/docs/faq/StoreSetup.html#can-or-should-i-create-multiple-stores-can-i-import-my-store-directly-and-use-it-in-components-myself">Can or should I create multiple stores?</a></p>
+<pre><code class="hljs css language-js"><span class="hljs-keyword">import</span> {connect, createProvider} <span class="hljs-keyword">from</span> <span class="hljs-string">'react-redux'</span>
+
+<span class="hljs-keyword">const</span> STORE_KEY = <span class="hljs-string">'componentStore'</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> Provider = createProvider(STORE_KEY)
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">connectExtended</span>(<span class="hljs-params">
+  mapStateToProps,
+  mapDispatchToProps,
+  mergeProps,
+  options = {}
+</span>) </span>{
+  options.storeKey = STORE_KEY
+  <span class="hljs-keyword">return</span> connect(
+    mapStateToProps,
+    mapDispatchToProps,
+    mergeProps,
+    options
+  )
+}
+
+<span class="hljs-keyword">export</span> {connectExtended <span class="hljs-keyword">as</span> connect}
+</code></pre>
+<p>Now you can import the above <code>Provider</code> and <code>connect</code> and use them.</p>
+</span></div></article></div><div class="docs-prevnext"></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#provider">Provider</a><ul class="toc-headings"><li><a href="#props">Props</a></li><li><a href="#example">Example</a></li></ul></li><li><a href="#connect">connect</a><ul class="toc-headings"><li><a href="#arguments">Arguments</a></li><li><a href="#returns">Returns</a></li></ul></li><li><a href="#connectadvanced">connectAdvanced</a><ul class="toc-headings"><li><a href="#arguments-1">Arguments</a></li><li><a href="#returns-1">Returns</a></li><li><a href="#remarks">Remarks</a></li></ul></li><li><a href="#createprovider">createProvider</a><ul class="toc-headings"><li><a href="#arguments-2">Arguments</a></li><li><a href="#examples-2">Examples</a></li></ul></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/react-redux/" class="nav-home"><img src="/react-redux/img/redux_white.svg" alt="React Redux" width="66" height="58"/></a><div><h5>Docs</h5><a href="/react-redux/introduction/quick-start">Introduction</a><a href="/react-redux/using-react-redux/connect-mapstate">Using React Redux</a><a href="/react-redux/api/connect">API Reference</a><a href="/react-redux/troubleshooting">Guides</a></div><div><h5>Community</h5><a href="http://stackoverflow.com/questions/tagged/react-redux" target="_blank" rel="noreferrer noopener">Stack Overflow</a><a href="https://discord.gg/0ZcbPKXt5bZ6au5t">Discord</a></div><div><h5>More</h5><a href="https://github.com/reduxjs/react-redux/">GitHub</a><a class="github-button" href="https://github.com/reduxjs/react-redux" data-icon="octicon-star" data-count-href="/reduxjs/react-redux/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a><a href="https://www.netlify.com"><img src="https://www.netlify.com/img/global/badges/netlify-light.svg" alt="Deploys by Netlify"/></a></div></section><section class="copyright">Copyright (c) 2015-present Dan Abramov and the Redux documentation authors.<br/>Some icons copyright <a href="https://fontawesome.com/license/free" style="color:white">Font Awesome</a> and <a href="https://thenounproject.com" style="color:white">Noun Project</a> (<a href="https://thenounproject.com/term/certificate/1945625/" style="color:white">prasong tadoungsorn</a>, <a href="https://thenounproject.com/term/box/1664404/" style="color:white">Vladimir Belochkin</a>, <a href="https://thenounproject.com/term/rocket/1245262/" style="color:white">Atif Arshad</a>)</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+                document.addEventListener('keyup', function(e) {
+                  if (e.target !== document.body) {
+                    return;
+                  }
+                  // keyCode for '/' (slash)
+                  if (e.keyCode === 191) {
+                    const search = document.getElementById('search_input_react');
+                    search && search.focus();
+                  }
+                });
+              </script><script>
+              var search = docsearch({
+                
+                apiKey: '2d058d216b7fd5d68d481fd48ee72c06',
+                indexName: 'react-redux',
+                inputSelector: '#search_input_react',
+                algoliaOptions: {}
+              });
+            </script><script src="http://localhost:undefined/livereload.js"></script></body></html>

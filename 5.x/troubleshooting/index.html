@@ -1,0 +1,142 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Troubleshooting · React Redux</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="## Troubleshooting"/><meta name="docsearch:version" content="5.x"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Troubleshooting · React Redux"/><meta property="og:type" content="website"/><meta property="og:url" content="https://josephmg.github.io/react-redux/"/><meta property="og:description" content="## Troubleshooting"/><meta property="og:image" content="https://josephmg.github.io/react-redux/img/redux-logo-landscape.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://josephmg.github.io/react-redux/img/redux-logo-twitter.png"/><link rel="shortcut icon" href="/react-redux/img/favicon/favicon.ico"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/monokai.min.css"/><script>
+              (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+              (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+              m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+              })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+              ga('create', 'UA-130598673-2', 'auto');
+              ga('send', 'pageview');
+            </script><script type="text/javascript" src="/scripts/sidebarScroll.js"></script><script type="text/javascript" src="/scripts/codeblock.js"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="/react-redux/js/scrollSpy.js"></script><link rel="stylesheet" href="/react-redux/css/main.css"/><script src="/react-redux/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/react-redux/"><img class="logo" src="/react-redux/img/redux_white.svg" alt="React Redux"/><h2 class="headerTitleWithLogo">React Redux</h2></a><a href="/react-redux/versions"><h3>5.x</h3></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive"><a href="/react-redux/5.x/introduction/quick-start" target="_self">Quick Start</a></li><li class="siteNavGroupActive"><a href="/react-redux/5.x/using-react-redux/connect-mapstate" target="_self">Using React Redux</a></li><li class="siteNavGroupActive"><a href="/react-redux/5.x/api/connect" target="_self">API</a></li><li class=""><a href="https://www.github.com/reduxjs/react-redux" target="_self">Github</a></li><li class=""><a href="/introduction/quick-start#help-and-discussion" target="_self">Need help?</a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>Guides</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Introduction</h3><ul class=""><li class="navListItem"><a class="navItem" href="/react-redux/5.x/introduction/quick-start">Quick Start</a></li><li class="navListItem"><a class="navItem" href="/react-redux/5.x/introduction/basic-tutorial">Basic Tutorial</a></li><li class="navListItem"><a class="navItem" href="/react-redux/5.x/introduction/why-use-react-redux">Why Use React-Redux?</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Using React-Redux</h3><ul class=""><li class="navListItem"><a class="navItem" href="/react-redux/5.x/using-react-redux/connect-mapstate">Connect: Extracting Data with mapStateToProps</a></li><li class="navListItem"><a class="navItem" href="/react-redux/5.x/using-react-redux/connect-mapdispatch">Connect: Dispatching Actions with mapDispatchToProps</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">API Reference</h3><ul class=""><li class="navListItem"><a class="navItem" href="/react-redux/5.x/api">API</a></li><li class="navListItem"><a class="navItem" href="/react-redux/5.x/api/connect">connect()</a></li><li class="navListItem"><a class="navItem" href="/react-redux/5.x/api/connect-advanced">connectAdvanced()</a></li><li class="navListItem"><a class="navItem" href="/react-redux/5.x/api/provider">Provider</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Guides</h3><ul class=""><li class="navListItem navListItemActive"><a class="navItem" href="/react-redux/5.x/troubleshooting">Troubleshooting</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"></header><article><div><span><h2><a class="anchor" aria-hidden="true" id="troubleshooting"></a><a href="#troubleshooting" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Troubleshooting</h2>
+<p>Make sure to check out <a href="http://redux.js.org/docs/Troubleshooting.html">Troubleshooting Redux</a> first.</p>
+<h3><a class="anchor" aria-hidden="true" id="im-getting-the-following-alert-accessing-proptypes-via-the-main-react-package-is-deprecated-use-the-prop-types-package-from-npm-instead"></a><a href="#im-getting-the-following-alert-accessing-proptypes-via-the-main-react-package-is-deprecated-use-the-prop-types-package-from-npm-instead" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>I'm getting the following alert: Accessing PropTypes via the main React package is deprecated. Use the prop-types package from npm instead.</h3>
+<p>This warning is shown when using react 15.5.*. Basically, now it's just a warning, but in react16 the application might break. the PropTypes should now be imported from 'prop-types' package, and not from the react package.</p>
+<p>Update to the latest version of react-redux.</p>
+<h3><a class="anchor" aria-hidden="true" id="my-views-arent-updating"></a><a href="#my-views-arent-updating" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>My views aren’t updating!</h3>
+<p>See the link above.
+In short,</p>
+<ul>
+<li>Reducers should never mutate state, they must return new objects, or React Redux won’t see the updates.</li>
+<li>Make sure you either bind action creators with the <code>mapDispatchToProps</code> argument to <code>connect()</code> or with the <code>bindActionCreators()</code> method, or that you manually call <code>dispatch()</code>. Just calling your <code>MyActionCreators.addTodo()</code> function won’t work because it just <em>returns</em> an action, but does not <em>dispatch</em> it.</li>
+</ul>
+<h3><a class="anchor" aria-hidden="true" id="my-views-arent-updating-on-route-change-with-react-router-013"></a><a href="#my-views-arent-updating-on-route-change-with-react-router-013" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>My views aren’t updating on route change with React Router 0.13</h3>
+<p>If you’re using React Router 0.13, you might <a href="https://github.com/reduxjs/react-redux/issues/43">bump into this problem</a>. The solution is simple: whenever you use <code>&lt;RouteHandler&gt;</code> or the <code>Handler</code> provided by <code>Router.run</code>, pass the router state to it.</p>
+<p>Root view:</p>
+<pre><code class="hljs css language-jsx">Router.run(routes, Router.HistoryLocation, (Handler, routerState) =&gt; { <span class="hljs-comment">// note "routerState" here</span>
+  ReactDOM.render(
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Provider</span> <span class="hljs-attr">store</span>=<span class="hljs-string">{store}</span>&gt;</span>
+      {/* note "routerState" here */}
+      <span class="hljs-tag">&lt;<span class="hljs-name">Handler</span> <span class="hljs-attr">routerState</span>=<span class="hljs-string">{routerState}</span> /&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">Provider</span>&gt;</span></span>,
+    <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'root'</span>)
+  )
+})
+</code></pre>
+<p>Nested view:</p>
+<pre><code class="hljs css language-js">render() {
+  <span class="hljs-comment">// Keep passing it down</span>
+  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">RouteHandler</span> <span class="hljs-attr">routerState</span>=<span class="hljs-string">{this.props.routerState}</span> /&gt;</span></span>
+}
+</code></pre>
+<p>Conveniently, this gives your components access to the router state!
+You can also upgrade to React Router 1.0 which shouldn’t have this problem. (Let us know if it does!)</p>
+<h3><a class="anchor" aria-hidden="true" id="my-views-arent-updating-when-something-changes-outside-of-redux"></a><a href="#my-views-arent-updating-when-something-changes-outside-of-redux" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>My views aren’t updating when something changes outside of Redux</h3>
+<p>If your views depend on global state or <a href="http://facebook.github.io/react/docs/context.html">React “context”</a>, you might find that views decorated with <code>connect()</code> will fail to update.</p>
+<blockquote>
+<p>This is because <code>connect()</code> implements <a href="https://facebook.github.io/react/docs/component-specs.html#updating-shouldcomponentupdate">shouldComponentUpdate</a> by default, assuming that your component will produce the same results given the same props and state. This is a similar concept to React’s <a href="https://facebook.github.io/react/docs/pure-render-mixin.html">PureRenderMixin</a>.</p>
+</blockquote>
+<p>The <em>best</em> solution to this is to make sure that your components are pure and pass any external state to them via props. This will ensure that your views do not re-render unless they actually need to re-render and will greatly speed up your application.</p>
+<p>If that’s not practical for whatever reason (for example, if you’re using a library that depends heavily on React context), you may pass the <code>pure: false</code> option to <code>connect()</code>:</p>
+<pre><code class="hljs css language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">mapStateToProps</span>(<span class="hljs-params">state</span>) </span>{
+  <span class="hljs-keyword">return</span> { <span class="hljs-attr">todos</span>: state.todos }
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> connect(mapStateToProps, <span class="hljs-literal">null</span>, <span class="hljs-literal">null</span>, {
+  <span class="hljs-attr">pure</span>: <span class="hljs-literal">false</span>
+})(TodoApp)
+</code></pre>
+<p>This will remove the assumption that <code>TodoApp</code> is pure and cause it to update whenever its parent component renders. Note that this will make your application less performant, so only do this if you have no other option.</p>
+<h3><a class="anchor" aria-hidden="true" id="could-not-find-store-in-either-the-context-or-props"></a><a href="#could-not-find-store-in-either-the-context-or-props" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Could not find &quot;store&quot; in either the context or props</h3>
+<p>If you have context issues,</p>
+<ol>
+<li><a href="https://medium.com/@dan_abramov/two-weird-tricks-that-fix-react-7cf9bbdef375">Make sure you don’t have a duplicate instance of React</a> on the page.</li>
+<li>Make sure you didn’t forget to wrap your root or some other ancestor component in <a href="#provider-store"><code>&lt;Provider&gt;</code></a>.</li>
+<li>Make sure you’re running the latest versions of React and React Redux.</li>
+</ol>
+<h3><a class="anchor" aria-hidden="true" id="invariant-violation-addcomponentasrefto-only-a-reactowner-can-have-refs-this-usually-means-that-youre-trying-to-add-a-ref-to-a-component-that-doesnt-have-an-owner"></a><a href="#invariant-violation-addcomponentasrefto-only-a-reactowner-can-have-refs-this-usually-means-that-youre-trying-to-add-a-ref-to-a-component-that-doesnt-have-an-owner" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Invariant Violation: addComponentAsRefTo(...): Only a ReactOwner can have refs. This usually means that you’re trying to add a ref to a component that doesn’t have an owner</h3>
+<p>If you’re using React for web, this usually means you have a <a href="https://medium.com/@dan_abramov/two-weird-tricks-that-fix-react-7cf9bbdef375">duplicate React</a>. Follow the linked instructions to fix this.</p>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/react-redux/5.x/api/provider"><span class="arrow-prev">← </span><span>Provider</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#troubleshooting">Troubleshooting</a><ul class="toc-headings"><li><a href="#im-getting-the-following-alert-accessing-proptypes-via-the-main-react-package-is-deprecated-use-the-prop-types-package-from-npm-instead">I'm getting the following alert: Accessing PropTypes via the main React package is deprecated. Use the prop-types package from npm instead.</a></li><li><a href="#my-views-arent-updating">My views aren’t updating!</a></li><li><a href="#my-views-arent-updating-on-route-change-with-react-router-013">My views aren’t updating on route change with React Router 0.13</a></li><li><a href="#my-views-arent-updating-when-something-changes-outside-of-redux">My views aren’t updating when something changes outside of Redux</a></li><li><a href="#could-not-find-store-in-either-the-context-or-props">Could not find &quot;store&quot; in either the context or props</a></li><li><a href="#invariant-violation-addcomponentasrefto-only-a-reactowner-can-have-refs-this-usually-means-that-youre-trying-to-add-a-ref-to-a-component-that-doesnt-have-an-owner">Invariant Violation: addComponentAsRefTo(...): Only a ReactOwner can have refs. This usually means that you’re trying to add a ref to a component that doesn’t have an owner</a></li></ul></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/react-redux/" class="nav-home"><img src="/react-redux/img/redux_white.svg" alt="React Redux" width="66" height="58"/></a><div><h5>Docs</h5><a href="/react-redux/introduction/quick-start">Introduction</a><a href="/react-redux/using-react-redux/connect-mapstate">Using React Redux</a><a href="/react-redux/api/connect">API Reference</a><a href="/react-redux/troubleshooting">Guides</a></div><div><h5>Community</h5><a href="http://stackoverflow.com/questions/tagged/react-redux" target="_blank" rel="noreferrer noopener">Stack Overflow</a><a href="https://discord.gg/0ZcbPKXt5bZ6au5t">Discord</a></div><div><h5>More</h5><a href="https://github.com/reduxjs/react-redux/">GitHub</a><a class="github-button" href="https://github.com/reduxjs/react-redux" data-icon="octicon-star" data-count-href="/reduxjs/react-redux/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a><a href="https://www.netlify.com"><img src="https://www.netlify.com/img/global/badges/netlify-light.svg" alt="Deploys by Netlify"/></a></div></section><section class="copyright">Copyright (c) 2015-present Dan Abramov and the Redux documentation authors.<br/>Some icons copyright <a href="https://fontawesome.com/license/free" style="color:white">Font Awesome</a> and <a href="https://thenounproject.com" style="color:white">Noun Project</a> (<a href="https://thenounproject.com/term/certificate/1945625/" style="color:white">prasong tadoungsorn</a>, <a href="https://thenounproject.com/term/box/1664404/" style="color:white">Vladimir Belochkin</a>, <a href="https://thenounproject.com/term/rocket/1245262/" style="color:white">Atif Arshad</a>)</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+                document.addEventListener('keyup', function(e) {
+                  if (e.target !== document.body) {
+                    return;
+                  }
+                  // keyCode for '/' (slash)
+                  if (e.keyCode === 191) {
+                    const search = document.getElementById('search_input_react');
+                    search && search.focus();
+                  }
+                });
+              </script><script>
+              var search = docsearch({
+                
+                apiKey: '2d058d216b7fd5d68d481fd48ee72c06',
+                indexName: 'react-redux',
+                inputSelector: '#search_input_react',
+                algoliaOptions: {}
+              });
+            </script><script src="http://localhost:undefined/livereload.js"></script></body></html>
